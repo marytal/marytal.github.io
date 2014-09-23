@@ -12,7 +12,7 @@ canvas.height = document.body.offsetHeight;
 canvas.width = document.body.offsetWidth;
 
 context.font = 'italic 25pt Calibri';
-context.fillText('Fill the screen with circles! Click your mouse for a change of colour!', 20, 100);
+context.fillText("Click your mouse for a change of colour! Right click when you're done!", 20, 100);
 
 var draw = function(){
 
@@ -39,11 +39,33 @@ var onMouseMove = function(e){
 }
 
 var onMouseDown = function(e){
+  if(e.button != 0){
+    return; 
+  }
   randColour = colours[Math.floor(Math.random()*colours.length)]
   draw();
 
 }
 
+var takeAPic = function(e){
+  if(e.button != 0){
+    return;
+  } else {
+    var image = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream"); 
+    window.location.href=image;
+  }
+}
+
+var onRightClick = function(e) {
+  e.preventDefault;
+  alert('Click on the camera to save your creation to your computer (or refresh to try again)!');
+  canvas.removeEventListener('mousemove', onMouseMove);
+}
+
+var camera = document.getElementById("camera");
+camera.addEventListener('mousedown', takeAPic, false)
+
 canvas.addEventListener('mousemove', onMouseMove, false);
 canvas.addEventListener('mousedown', onMouseDown, false);
+canvas.addEventListener('contextmenu', onRightClick, false);
 

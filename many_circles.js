@@ -4,7 +4,7 @@ var context = canvas.getContext("2d");
 canvas.height = document.body.offsetHeight;
 canvas.width = document.body.offsetWidth;
 
-var colours = ['red', 'green', 'blue', 'orange'];
+var colours = ['red', 'green', 'blue', 'yellow'];
 var radiuses = [];
 var centerXs = [];
 var centerYs = [];
@@ -13,15 +13,16 @@ for(var i = 3; i < 30; i++){
   radiuses.push(i);
 }
 
-for(var j = 10; j < canvas.width - 100; j++){
+for(var j = 100; j < canvas.width - 150; j++){
   centerXs.push(j);
 }
 
-for(var j = 10; j < canvas.height - 100; j++){
+for(var j = 100; j < canvas.height - 150; j++){
   centerYs.push(j);
 }
 
-
+var points = 0;
+var pointString = parseInt(points);
 squareX = -50;
 squareY = -50;
 
@@ -81,12 +82,49 @@ var drawSquare = function() {
   context.stroke();
 }
 
+var drawPosts = function() {
+  context.beginPath();
+  context.rect(canvas.width - 50, 0, 50, canvas.height);
+  context.fillStyle = 'red';
+  context.fill();
+  context.stroke();
+
+  context.beginPath();
+  context.rect(50, 0, canvas.width - 100, 50);
+  context.fillStyle = 'yellow';
+  context.fill();
+  context.stroke();
+
+  context.beginPath();
+  context.rect(0, 0, 50, canvas.height);
+  context.fillStyle = 'blue';
+  context.fill();
+  context.stroke();
+
+  context.beginPath();
+  context.rect(50, canvas.height - 50, canvas.width - 100, 50);
+  context.fillStyle = 'green';
+  context.fill();
+  context.stroke();
+
+}
+
+var displayPoints = function(){
+  context.font = 'italic 25pt Calibri';
+  context.fillText('Points:', 60, 100);
+  context.fillText(pointString, 160, 100);
+  context.fillText("/30", 195, 100);
+}
+
 var draw = function(){
 
   canvas.height = document.body.offsetHeight;
   canvas.width = document.body.offsetWidth;
 
-  drawSquare();
+
+  drawPosts();
+  displayPoints();
+  drawCaptureButton();
 
   for(var i = 0; i < circles.length; i++){
     drawCircle(circles[i][0], circles[i][1], circles[i][2], circles[i][3]);
@@ -95,6 +133,33 @@ var draw = function(){
 }
 
 
+
+var checkCircleStatus = function(circle) {
+  var circleR = circle[2];
+  var circleX = circle[0];
+  var circleY = circle[1];
+  var colour = circle[3];
+
+  if((circleX > canvas.width + circleR) && colour == 'red'){
+    points++;
+  } else if((circleX < -circleR) && colour == 'blue'){
+    points++;
+  } else if((circleY > canvas.height + circleR) && colour == 'green'){
+    points++;
+  } else if((circleY < -circleR) && colour == 'yellow'){
+    points++;
+  }
+
+  pointString = parseInt(points);
+  if((circleY < -circleR) || (circleY > canvas.height + circleR) || 
+    (circleX < -circleR) || (circleX > canvas.width + circleR)) {
+    circles.splice(circles.indexOf(circle), 1);
+  }
+
+  if (circles.length == 0) {
+    alert("game over! You scored " + points + " points!");
+  }
+}
 
 var moveCircle = function(circle, e) {
 
@@ -105,18 +170,50 @@ var moveCircle = function(circle, e) {
   var objCentre = [circleX, circleY];
 
   var vector = subtract(objCentre, mousePos);
-  if (magnitude(vector) < circleR * 100) {
+  if (magnitude(vector) < 100) {
     var distanceToAdd = normalize(vector);
     var newObj = add(objCentre, distanceToAdd);
     circle[0] = newObj[0];
     circle[1] = newObj[1];
   }
 
+  checkCircleStatus(circle);
+
 }
+
 
 var moveSquare = function(e) {
   squareX = e.pageX;
   squareY = e.pageY;
+}
+
+var drawCaptureButton = function() {
+  context.beginPath();
+  context.rect(canvas.width - 150, 15, 30, 20);
+  context.fillStyle = 'yellow';
+  context.fill();
+  context.lineWidth = 1.5;
+  context.strokeStyle = 'black';
+  context.stroke();
+
+  context.beginPath();
+  context.arc(canvas.width - 135, 25, 6, 0, 2 * Math.PI, false);
+  context.fillStyle = 'yellow';
+  context.fill();
+  context.lineWidth = 0;
+  context.strokeStyle = 'black';
+  context.stroke();
+
+
+  var startAngle = 1.1 * Math.PI;
+  var endAngle = 1.9 * Math.PI;
+
+  context.beginPath();
+  context.arc(canvas.width - 143, 16, 6, startAngle, endAngle, false);
+
+      // line color
+      context.strokeStyle = 'black';
+      context.stroke();
 }
 
 
@@ -129,10 +226,33 @@ var onMouseMove = function(e){
   }
 
   moveSquare(e);
+  
+}
+
+var onMouseDown = function(e){
+  if(e.button != 0){
+    return;
+  }
+
+  var mousePos = [e.pageX,e.pageY];
+  var cameraX = canvas.width - 150
+  var cameraY = 15
+  var objCentre = [cameraX, cameraY];
+
+  var vector = subtract(objCentre, mousePos);
+  if (magnitude(vector) < 25) {
+    console.log("clicked!");
+    var image = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream"); 
+    window.location.href=image;
+  }
+
 }
 
 
 generate30Circles();
 draw();
 addEventListener('mousemove', onMouseMove, false);
-object.addEventListener("load", moveSquare);
+addEventListener("load", moveSquare);
+addEventListener('mousedown', onMouseDown)
+
+
