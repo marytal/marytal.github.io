@@ -9,7 +9,7 @@ var radiuses = [];
 var centerXs = [];
 var centerYs = [];
 
-for(var i = 3; i < 30; i++){
+for(var i = 10; i < 40; i++){
   radiuses.push(i);
 }
 
@@ -27,6 +27,8 @@ squareX = -50;
 squareY = -50;
 
 var circles = [];
+
+var globalMousePosition = [-50, -50];
 
 var generate30Circles = function(){
 
@@ -56,7 +58,7 @@ add = function(v1, v2) {
   return [v1[0] + v2[0], v1[1] + v2[1]]
 }
 normalize = function(vector) {
-  return scale(vector, 5 * 1/magnitude(vector))
+  return scale(vector, 1/magnitude(vector))
 }
 
 
@@ -72,14 +74,11 @@ var drawCircle = function(centerX, centerY, randRadius, randColour) {
 
 }
 
-var drawSquare = function() {
-  context.beginPath();
-  context.rect(squareX, squareY, 50, 50);
-  context.fillStyle = 'black';
-  context.fill();
-  context.lineWidth = 1.5;
-  context.strokeStyle = 'black';
-  context.stroke();
+var drawSheep = function() {
+  var image = new Image();
+  image.src = "https://www.foodandhealth.com/images/clipart/Broom.png";
+  context.drawImage(image, globalMousePosition[0], globalMousePosition[1], 40, 70);
+  
 }
 
 var drawPosts = function() {
@@ -113,7 +112,12 @@ var displayPoints = function(){
   context.font = 'italic 25pt Calibri';
   context.fillText('Points:', 60, 100);
   context.fillText(pointString, 160, 100);
-  context.fillText("/30", 195, 100);
+}
+
+var drawEndGame = function(){
+  var image = new Image()
+  image.src = "http://hotmexchili.com/media/catalog/product/cache/1/image/650x650/9df78eab33525d08d6e5fb8d27136e95/g/a/gameover.jpg"
+  context.drawImage(image, canvas.width / 2 - 200, canvas.height / 2 - 200, 400, 400);
 }
 
 var draw = function(){
@@ -123,16 +127,27 @@ var draw = function(){
 
 
   drawPosts();
+  drawSheep();
   displayPoints();
   drawCaptureButton();
+  moveCircles();
 
   for(var i = 0; i < circles.length; i++){
     drawCircle(circles[i][0], circles[i][1], circles[i][2], circles[i][3]);
   }
+
+  if(circles.length == 0){
+    drawEndGame();
+  }
+
+
   requestAnimationFrame(draw);
 }
 
 
+var removeCircle = function(circle) {
+  circles.splice(circles.indexOf(circle), 1);
+}
 
 var checkCircleStatus = function(circle) {
   var circleR = circle[2];
@@ -141,38 +156,48 @@ var checkCircleStatus = function(circle) {
   var colour = circle[3];
 
   if((circleX > canvas.width + circleR) && colour == 'red'){
-    points++;
+    points += 5;
+    return removeCircle(circle);
   } else if((circleX < -circleR) && colour == 'blue'){
-    points++;
+    points += 5;
+    return removeCircle(circle);
   } else if((circleY > canvas.height + circleR) && colour == 'green'){
-    points++;
+    points += 5;
+    return removeCircle(circle);
   } else if((circleY < -circleR) && colour == 'yellow'){
-    points++;
+    points += 5;
+    return removeCircle(circle);
   }
 
   pointString = parseInt(points);
   if((circleY < -circleR) || (circleY > canvas.height + circleR) || 
     (circleX < -circleR) || (circleX > canvas.width + circleR)) {
-    circles.splice(circles.indexOf(circle), 1);
+    points--;
+    removeCircle(circle);
   }
 
   if (circles.length == 0) {
-    alert("game over! You scored " + points + " points!");
+    alert("Good game(ish)! You scored " + (points + 1) + " points!");
   }
 }
 
-var moveCircle = function(circle, e) {
+var moveCircle = function(circle, mousePos) {
 
-  var mousePos = [e.pageX,e.pageY];
   var circleX = circle[0];
   var circleY = circle[1];
   var circleR = circle[2];
   var objCentre = [circleX, circleY];
 
   var vector = subtract(objCentre, mousePos);
-  if (magnitude(vector) < 100) {
-    var distanceToAdd = normalize(vector);
-    var newObj = add(objCentre, distanceToAdd);
+  var distance = magnitude(vector);
+  if (distance < 3500) {
+
+    var baseSpeed = 14400;
+    var howMuchDistanceAffectsSpeed = 1.8;
+
+    var distanceToAdd = baseSpeed / Math.pow(distance, howMuchDistanceAffectsSpeed);
+    var vectorToAdd = scale(normalize(vector), distanceToAdd);
+    var newObj = add(objCentre, vectorToAdd);
     circle[0] = newObj[0];
     circle[1] = newObj[1];
   }
@@ -216,16 +241,18 @@ var drawCaptureButton = function() {
       context.stroke();
 }
 
+var onMouseMove = function(e) {
+  globalMousePosition[0] = e.pageX;
+  globalMousePosition[1] = e.pageY;
+}
 
-var onMouseMove = function(e){
+var moveCircles = function(){
 
   for(var i = 0; i < circles.length; i++){
     var circle = circles[i];
-    moveCircle(circle, e);
+    moveCircle(circle, globalMousePosition);
 
   }
-
-  moveSquare(e);
   
 }
 
