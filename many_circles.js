@@ -9,7 +9,7 @@ var radiuses = [];
 var centerXs = [];
 var centerYs = [];
 
-for(var i = 10; i < 40; i++){
+for(var i = 20; i < 60; i++){
   radiuses.push(i);
 }
 
@@ -30,18 +30,40 @@ var circles = [];
 
 var globalMousePosition = [-50, -50];
 
-var generate30Circles = function(){
+var generateCircle = function(){
+  var randColour = colours[Math.floor(Math.random()*colours.length)];
+  var randRadius = radiuses[Math.floor(Math.random()*radiuses.length)];
+  var centerX = centerXs[Math.floor(Math.random()*centerXs.length)];
+  var centerY = centerYs[Math.floor(Math.random()*centerYs.length)];
 
-  for(var x = 0; x <= 30; x++){
-    var randColour = colours[Math.floor(Math.random()*colours.length)];
-    var randRadius = radiuses[Math.floor(Math.random()*radiuses.length)];
-    var centerX = centerXs[Math.floor(Math.random()*centerXs.length)];
-    var centerY = centerYs[Math.floor(Math.random()*centerYs.length)];
+  var circle = [centerX, centerY, randRadius, randColour];
+  circles.push(circle);
+}
 
-    var circle = [centerX, centerY, randRadius, randColour];
-    circles.push(circle);
+
+var generate10Circles = function(){
+
+  for(var x = 0; x <= 10; x++){
+    generateCircle();
   }
 }
+
+var maxCircles = 15;
+var circlesAdded = 0;
+var randomCircles
+
+var startGenerating = function(){
+  randomCircles = setInterval(generateDuringGame, 2000);
+}
+
+var generateDuringGame = function(){
+  generateCircle();
+  circlesAdded++;
+  if(maxCircles < circlesAdded){
+    clearInterval(randomCircles);
+  }
+}
+
 
 
 
@@ -177,7 +199,7 @@ var checkCircleStatus = function(circle) {
   }
 
   if (circles.length == 0) {
-    alert("Good game(ish)! You scored " + (points + 1) + " points!");
+    alert("Good game(ish)! You scored " + points + " points!");
   }
 }
 
@@ -244,6 +266,7 @@ var drawCaptureButton = function() {
 var onMouseMove = function(e) {
   globalMousePosition[0] = e.pageX;
   globalMousePosition[1] = e.pageY;
+
 }
 
 var moveCircles = function(){
@@ -261,6 +284,7 @@ var onMouseDown = function(e){
     return;
   }
 
+
   var mousePos = [e.pageX,e.pageY];
   var cameraX = canvas.width - 150
   var cameraY = 15
@@ -276,10 +300,11 @@ var onMouseDown = function(e){
 }
 
 
-generate30Circles();
+generate10Circles();
 draw();
-addEventListener('mousemove', onMouseMove, false);
-addEventListener("load", moveSquare);
-addEventListener('mousedown', onMouseDown)
+canvas.addEventListener('mousemove', onMouseMove, false);
+canvas.addEventListener('mousedown', onMouseDown);
+window.addEventListener('load', startGenerating);
+
 
 

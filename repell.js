@@ -11,11 +11,20 @@ var radius = 70;
 var message = 'If you can click it, you win!';
 
 
+var checkLocation = function() {
+  if((centerX > canvas.width + radius + 15) || (centerX < -radius - 15) || 
+    (centerY > canvas.height + radius + 15) || (centerY < -radius - 15)) {
+    alert("Oops. Circle out of bounds. Refresh to try again.")
+    canvas.removeEventListener('mousemove', onMouseMove);
+    return true;
+  }
 
+  return false;
+}
 
 
 var draw = function(){
-
+;
   canvas.height = document.body.offsetHeight;
   canvas.width = document.body.offsetWidth;
 
@@ -61,7 +70,9 @@ var onMouseMove = function(e){
     centerY = newObj[1];
   }
 
-
+  if (checkLocation()){
+    return
+  };
   draw();
   context.font = 'italic 25pt Calibri';
   context.fillText(message, 20, 100);

@@ -30,6 +30,7 @@ context.stroke();
 }
 
 
+
 var onMouseMove = function(e){
   var x_coord = e.pageX;
   var y_coord = e.pageY;
