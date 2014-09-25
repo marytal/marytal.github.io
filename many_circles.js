@@ -151,6 +151,8 @@ var drawEndGame = function(){
   var image = new Image()
   image.src = "http://hotmexchili.com/media/catalog/product/cache/1/image/650x650/9df78eab33525d08d6e5fb8d27136e95/g/a/gameover.jpg"
   context.drawImage(image, canvas.width / 2 - 200, canvas.height / 2 - 200, 400, 400);
+  context.fillText('Refresh to play again.', canvas.width / 2 - 170, canvas.height / 2 + 315);
+
 }
 
 var draw = function(){
@@ -230,7 +232,7 @@ var checkCircleStatus = function(circle) {
     if(outline != 'black'){
       points-= 20;
     } else {
-      points -= 1;
+      points -= 2;
     }
     removeCircle(circle);
   }
