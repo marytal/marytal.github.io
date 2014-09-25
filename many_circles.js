@@ -4,10 +4,11 @@ var context = canvas.getContext("2d");
 canvas.height = document.body.offsetHeight;
 canvas.width = document.body.offsetWidth;
 
-var colours = ['red', 'green', 'blue', 'yellow'];
+var colours = ['red', 'green', 'blue', 'yellow','red', 'green', 'blue', 'yellow', 'red', 'green', 'blue', 'yellow', 'black'];
 var radiuses = [];
 var centerXs = [];
 var centerYs = [];
+var outlines = ['red', 'green', 'blue', 'yellow'];
 
 for(var i = 20; i < 60; i++){
   radiuses.push(i);
@@ -35,8 +36,13 @@ var generateCircle = function(){
   var randRadius = radiuses[Math.floor(Math.random()*radiuses.length)];
   var centerX = centerXs[Math.floor(Math.random()*centerXs.length)];
   var centerY = centerYs[Math.floor(Math.random()*centerYs.length)];
+  if(randColour == 'black'){
+    var randOutline = outlines[Math.floor(Math.random()*outlines.length)];
+  } else {
+    var randOutline = 'black';
+  }
 
-  var circle = [centerX, centerY, randRadius, randColour];
+  var circle = [centerX, centerY, randRadius, randColour, randOutline];
   circles.push(circle);
 }
 
@@ -84,15 +90,20 @@ normalize = function(vector) {
 }
 
 
-var drawCircle = function(centerX, centerY, randRadius, randColour) {
+var drawCircle = function(centerX, centerY, randRadius, randColour, randOutline) {
 
   context.beginPath();
   context.arc(centerX, centerY, randRadius, 0, 2 * Math.PI, false);
   context.fillStyle = randColour;
   context.fill();
   context.lineWidth = 0;
-  context.strokeStyle = 'black';
+  if(randColour == 'black') {
+    context.strokeStyle = randOutline;
+  } else {
+    context.strokeStyle = 'black';
+  }
   context.stroke();
+  context.strokeStyle = 'black'
 
 }
 
@@ -155,11 +166,12 @@ var draw = function(){
   moveCircles();
 
   for(var i = 0; i < circles.length; i++){
-    drawCircle(circles[i][0], circles[i][1], circles[i][2], circles[i][3]);
+    drawCircle(circles[i][0], circles[i][1], circles[i][2], circles[i][3], circles[i][4]);
   }
 
-  if(circles.length == 0){
+  if((circles.length == 0) && (circlesAdded > maxCircles)){
     drawEndGame();
+    //alert("Good game(ish)! You scored " + points + " points!");
   }
 
 
@@ -176,31 +188,53 @@ var checkCircleStatus = function(circle) {
   var circleX = circle[0];
   var circleY = circle[1];
   var colour = circle[3];
+  var outline = circle[4];
+
+  if(colour == 'black'){
+    colour = outline;
+  }
 
   if((circleX > canvas.width + circleR) && colour == 'red'){
-    points += 5;
+    if(outline != 'black'){
+      points+= 10;
+    } else {
+      points += 5;
+    }
     return removeCircle(circle);
   } else if((circleX < -circleR) && colour == 'blue'){
-    points += 5;
+      if(outline != 'black'){
+        points+= 10;
+      } else {
+        points += 5;
+      }
     return removeCircle(circle);
   } else if((circleY > canvas.height + circleR) && colour == 'green'){
-    points += 5;
+      if(outline != 'black'){
+        points+= 10;
+      } else {
+        points += 5;
+      }
     return removeCircle(circle);
   } else if((circleY < -circleR) && colour == 'yellow'){
-    points += 5;
+      if(outline != 'black'){
+        points+= 10;
+      } else {
+        points += 5;
+      }
     return removeCircle(circle);
   }
 
   pointString = parseInt(points);
   if((circleY < -circleR) || (circleY > canvas.height + circleR) || 
     (circleX < -circleR) || (circleX > canvas.width + circleR)) {
-    points--;
+    if(outline != 'black'){
+      points-= 20;
+    } else {
+      points -= 1;
+    }
     removeCircle(circle);
   }
 
-  if (circles.length == 0) {
-    alert("Good game(ish)! You scored " + points + " points!");
-  }
 }
 
 var moveCircle = function(circle, mousePos) {
