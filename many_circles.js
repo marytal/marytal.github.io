@@ -28,6 +28,7 @@ squareX = -50;
 squareY = -50;
 
 var circles = [];
+var level = 1;
 
 var globalMousePosition = [-50, -50];
 
@@ -54,7 +55,7 @@ var generate10Circles = function(){
   }
 }
 
-var maxCircles = 15;
+var maxCircles = 3;
 var circlesAdded = 0;
 var randomCircles
 
@@ -62,9 +63,48 @@ var startGenerating = function(){
   randomCircles = setInterval(generateDuringGame, 2000);
 }
 
+
+var whiteBombCoords;
+var drawWhiteBomb = function() {
+
+  context.beginPath();
+  context.arc(whiteBombCoords[0], whiteBombCoords[1], 40, 0, 2 * Math.PI, false);
+  context.fillStyle = 'white';
+  context.fill();
+  context.strokeStyle = colours[Math.floor(Math.random()*colours.length)];
+  context.stroke();
+  context.strokeStyle = 'black'
+  moveCircle(whiteBombCoords, globalMousePosition);
+}
+
+
+var destroyWhiteBomb = function() {
+  var vector = subtract(globalMousePosition, whiteBombCoords);
+  distance = magnitude(vector);
+
+  if(distance < 80){
+    whiteBombCoords = null;
+    clearInterval(bombTimer);
+  }
+
+}
+
+var bombGoesBoom = function() {
+  points -= 1;
+}
+
+var bombTimer;
 var generateDuringGame = function(){
   generateCircle();
   circlesAdded++;
+
+  if((circlesAdded == 2) && (level == 2)) {
+    var centerX = centerXs[Math.floor(Math.random()*centerXs.length)];
+    var centerY = centerYs[Math.floor(Math.random()*centerYs.length)];
+    whiteBombCoords = [centerX, centerY];
+    bombTimer = setInterval(bombGoesBoom, 1000);
+  }
+
   if(maxCircles < circlesAdded){
     clearInterval(randomCircles);
   }
@@ -167,12 +207,22 @@ var draw = function(){
   drawCaptureButton();
   moveCircles();
 
+  if(whiteBombCoords) {
+    drawWhiteBomb();
+  }
+
   for(var i = 0; i < circles.length; i++){
     drawCircle(circles[i][0], circles[i][1], circles[i][2], circles[i][3], circles[i][4]);
   }
 
   if((circles.length == 0) && (circlesAdded > maxCircles)){
-    drawEndGame();
+    if(level == 2){
+      drawEndGame();
+    } else { 
+      alert("Begin level 2!");
+      level = 2;
+      secondLevelStart();
+    }
     //alert("Good game(ish)! You scored " + points + " points!");
   }
 
@@ -180,6 +230,14 @@ var draw = function(){
   requestAnimationFrame(draw);
 }
 
+
+var secondLevelStart = function() {
+  generate10Circles();
+  startGenerating();
+  circlesAdded = 0;
+  colours = ['red', 'green', 'blue', 'yellow', 'black'];
+
+}
 
 var removeCircle = function(circle) {
   circles.splice(circles.indexOf(circle), 1);
@@ -241,9 +299,15 @@ var checkCircleStatus = function(circle) {
 
 var moveCircle = function(circle, mousePos) {
 
-  var circleX = circle[0];
-  var circleY = circle[1];
-  var circleR = circle[2];
+  if(circle.length < 4){
+    var circleX = circle[0];
+    var circleY = circle[1];
+  } else {
+    var circleX = circle[0];
+    var circleY = circle[1];
+    var circleR = circle[2];
+  }
+
   var objCentre = [circleX, circleY];
 
   var vector = subtract(objCentre, mousePos);
@@ -260,7 +324,8 @@ var moveCircle = function(circle, mousePos) {
     circle[1] = newObj[1];
   }
 
-  checkCircleStatus(circle);
+  if(circleR)
+    checkCircleStatus(circle);
 
 }
 
@@ -341,6 +406,8 @@ draw();
 canvas.addEventListener('mousemove', onMouseMove, false);
 canvas.addEventListener('mousedown', onMouseDown);
 window.addEventListener('load', startGenerating);
+
+canvas.addEventListener('mousedown', destroyWhiteBomb);
 
 
 
