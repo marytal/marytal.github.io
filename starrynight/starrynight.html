@@ -117,6 +117,10 @@ function handleLoad(event) {
       if (e.button != 0){
         return;
       }
+
+      if (text) {
+        text.remove()
+      }
       countRadius = setInterval(function() {
         radius += 1;
         var growing = new Circle(radius);
@@ -134,6 +138,22 @@ function handleLoad(event) {
       last_circle.move();
       radius = 0;
     })
+
+    var text = new Kinetic.Text({
+    text: "Click to Bring Out the Stars",
+      fontSize: 15,
+      fontFamily: 'Calibri',
+      fill: 'white',
+      x: doc_width/2,
+      y: doc_height/2,
+    });
+
+    text.setX( (doc_width/2) - text.getWidth()/2 );
+    layer.add(text);
+
+    layer.draw()
+
+
 
   }
 
