@@ -1,0 +1,298 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <style>
+      body {
+        margin: 0px;
+        padding: 0px;
+      }
+
+    </style>
+  </head>
+  <body>
+      <div id="container" style="background: lightblue;"></div>
+
+<script src="http://d3lp1msu2r81bx.cloudfront.net/kjs/js/lib/kinetic-v5.0.2.min.js"></script>
+<script src="http://code.createjs.com/soundjs-0.5.2.min.js"></script>
+<script defer="defer">
+
+
+  var mouseCoords = [0, 0];
+  var doc_height = document.body.scrollHeight;
+  var doc_width = document.body.offsetWidth;
+  var radius = 0;
+  var points = 0;
+
+  var stage = new Kinetic.Stage({
+    container: 'container',
+    width: doc_width,
+    height: doc_height
+  });
+
+  var rings = []
+  var close;
+
+  var _numberOfRings = 3;
+  var _maxSpeed = 4;
+  var _minGap = 70;
+
+
+  function Level(numberOfRings, color, maxSpeed, minGap){
+    for(var i = 0; i < numberOfRings; i++){
+      radius = Math.floor(Math.random() * 400) + 60
+      speed = Math.floor(Math.random() * 8) + maxSpeed
+      gap = Math.floor(Math.random() * 180) + minGap
+      console.log(gap);
+      clockwise = Math.floor(Math.random()*2)
+      if (clockwise) {
+        clockwise = 1;
+      } else {
+        clockwise = -1;
+      }
+      var ring = new Ring(radius, speed, gap, clockwise);
+      // ring.ring.fill = color;
+    }
+
+    var timer = new Ring(900, 10, 0, 1);
+    close = new Kinetic.Tween({
+      node: timer.ring,
+      scaleX: 0,
+      scaleY: 0,
+      duration: 16,
+    }).play();
+
+    setStar();
+
+
+  }
+
+  function Ring(radius, speed, gap, clockwise){
+    var self = this;
+
+    rings.push(self);
+
+    self.radius = radius;
+    self.speed = speed;
+    self.gap = 360 - gap;
+    self.clockwise = clockwise;
+
+    self.ring = new Kinetic.Shape({
+      x: doc_width/2 - 50, y: doc_height/2,
+      radius1: self.radius, radius2: self.radius + 5, start: 0, stop: self.gap,
+      sceneFunc: function(context) {
+        context.beginPath()
+        var start = radians (this.attrs.start), stop = radians (this.attrs.stop)
+        context.arc (0, 0, this.attrs.radius1, start, stop, false)
+        context.arc (0, 0, this.attrs.radius2, stop, start, true)
+        context.closePath()
+        // KineticJS specific context method
+        context.fillStrokeShape(this);
+      },
+      fill: 'red',
+      stroke: 'black',
+      strokeWidth: 2
+    });
+
+    ring_layer.add(self.ring);
+
+    if(radius < 800) {
+      self.tween = new Kinetic.Tween({
+        node: self.ring,
+        rotation: 360 * clockwise,
+        duration: self.speed,
+        onFinish: function(){
+          self.tween.reset();
+          self.tween.play();
+        }
+      }).play();
+    }
+
+
+  }
+
+
+      //functions
+
+  function radians (degrees) {
+    return (Math.PI/180) * degrees
+  }
+
+
+  var setStar = function(){
+    var star = new Kinetic.Star({
+      x: doc_width/2 - 50,
+      y: doc_height/2,
+      numPoints: 5,
+      innerRadius: 20,
+      outerRadius: 40,
+      fill: 'yellow',
+      stroke: 'black',
+      strokeWidth: 3
+    });
+
+    star.on('click', function(){
+      star_tween = new Kinetic.Tween({
+        node: star,
+        rotation: 360,
+        duration: 0.5,
+        scaleX: 0,
+        scaleY: 0,
+        onFinish: function(){
+          startLevel();
+        }
+      }).play()
+      points += 5;
+      
+
+    })
+
+    star_layer.add(star);
+    stage.add(star_layer);
+  }
+
+  var endGame = function(){
+    length = rings.length;
+    for(var i = 0; i < length - 1; i++){
+      rings[i].tween.pause();
+    }
+    close.pause();
+    var simpleText = new Kinetic.Text({
+      x: doc_width / 2,
+      y: doc_height / 2,
+      text: 'Points: ' + points,
+      fontSize: 30,
+      fontFamily: 'Calibri',
+      fill: 'black'
+    });
+
+    simpleText.setX( simpleText.getX() - simpleText.getWidth())
+
+    player_layer.add(simpleText);
+    player_layer.draw();
+  }
+
+
+  var startLevel = function(){
+        ring_layer.removeChildren();
+        rings = [];
+        star_layer.removeChildren();
+
+        var startGame = new Kinetic.Rect({
+        width: 60,
+        height: 20,
+        fill: 'red',
+        stroke: 'black',
+        x: 70,
+        y: doc_height - 100
+      })
+
+        startLevelAnim();
+
+      startGame.on('click', function(){
+        new Level(_numberOfRings, 'yellow', _maxSpeed, _minGap);
+        _numberOfRings += 1;
+        _maxSpeed -= 0.3;
+        _minGap -= 1;
+        player_layer.removeChildren();
+        player_layer.add(circle);
+        player_layer.draw();
+      })
+
+      player_layer.add(startGame);
+  }
+  
+  // freehand
+
+      var ring_layer = new Kinetic.Layer();
+      var player_layer = new Kinetic.Layer();
+      var star_layer = new Kinetic.Layer();
+
+  
+
+      var circle = new Kinetic.Circle({
+        x: doc_width/2 - 50,
+        y: doc_height/2,
+        radius: 10,
+        fill: 'yellow',
+        stroke: 'black'
+      })
+
+      player_layer.add(circle);
+      stage.add(ring_layer);
+      stage.add(player_layer);
+
+  
+
+    document.addEventListener('mousemove', function(e){
+      mouseCoords[0] = e.pageX;
+      mouseCoords[1] = e.pageY;
+      circle.setX(mouseCoords[0]);
+      circle.setY(mouseCoords[1]);
+      player_layer.draw();
+    })
+
+    onload = function(){
+      var isPlayerHit = setInterval(function() {
+        if(ring_layer.getIntersection(circle.position())) {
+          star_layer.removeChildren();
+          star_layer.draw();
+          clearInterval(isPlayerHit);
+          endGame();
+        }
+      });
+
+    startLevel()
+
+    }
+
+
+
+    document.addEventListener('contextmenu', function(e){
+      e.preventDefault();
+    })
+
+var startLevelAnim = function(){
+  var welcome_text = new Kinetic.Text({
+      x: doc_width / 2,
+      y: doc_height / 2,
+      text: 'Click to start the level!',
+      fontSize: 30,
+      fontFamily: 'Calibri',
+      fill: 'black'
+    });
+
+    var imageObj = new Image();
+    imageObj.onload = function() {
+      var arrow = new Kinetic.Image({
+        x: doc_width/7,
+        y: doc_height/2 - 20,
+        offSet: {x: 20, y: 20},
+        image: imageObj,
+        width: 106,
+        height: 118
+      });
+
+      var tween = new Kinetic.Tween({
+        node: arrow,
+        duration: 0.001,
+        rotation: 90
+      }).play()
+
+      player_layer.add(arrow);
+      player_layer.draw();
+    }
+
+    imageObj.src = "http://www.charbase.com/images/glyph/10551"
+
+    welcome_text.setX( welcome_text.getX() - (welcome_text.getWidth() / 2))
+
+    
+    player_layer.add(welcome_text);
+
+    player_layer.draw();
+}
+
+
+
+
+</script>
