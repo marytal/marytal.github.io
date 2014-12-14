@@ -5,9 +5,30 @@
     <description>Creative minds are rarely tidy.</description>
     <link>/</link>
     <atom:link href="/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sat, 13 Dec 2014 23:54:13 -0600</pubDate>
-    <lastBuildDate>Sat, 13 Dec 2014 23:54:13 -0600</lastBuildDate>
+    <pubDate>Sun, 14 Dec 2014 12:35:57 -0600</pubDate>
+    <lastBuildDate>Sun, 14 Dec 2014 12:35:57 -0600</lastBuildDate>
     <generator>Jekyll v2.4.0</generator>
+    
+      <item>
+        <title>Magnet Board</title>
+        <description>&lt;div class=&quot;css-full-post-content js-full-post-content&quot;&gt;
+I began making this app when I was just starting out with Ruby and Ruby on Rails. I hadn&#39;t finished it because many of the features that I wanted to include seemed out of my league at the time. When I came back to it a few days ago I was happy to see that I could now debug my code, understand it, and add the features that I had wanted. &lt;br&gt;&lt;br /&gt;
+
+&lt;span style=&quot;color: blue;&quot;&gt;
+Lessons Learned: &lt;br&gt;
+&lt;br /&gt;&lt;ol&gt;&lt;li style=&quot;color: blue;&quot;&gt;Getting the hang of stuff is awesome&lt;/li&gt;
+&lt;li style=&quot;color: blue;&quot;&gt;Adobe Premiere Pro is pretty cool too&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/span&gt;
+
+&lt;br /&gt;Video below demonstrates functionality.&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;iframe width=&quot;640&quot; height=&quot;390&quot; src=&quot;//www.youtube.com/embed/gdURhw1waas&quot; frameborder=&quot;0&quot; allowfullscreen&gt;&lt;/iframe&gt;&lt;br /&gt;&lt;br /&gt;Visit &lt;a href=&quot;http://magnetboard.marytal.com/&quot; target=&quot;_blank&quot;&gt;Magnet Board&lt;/a&gt; here.&lt;br /&gt;Visit &lt;a href=&quot;https://github.com/marytal/magnet_board&quot; target=&quot;_blank&quot;&gt;Github Directory&lt;/a&gt;&amp;nbsp;to see code.&lt;br /&gt;&lt;br /&gt;
+&lt;/div&gt;</description>
+        <pubDate>Sat, 13 Dec 2014 22:41:00 -0600</pubDate>
+        <link>/2014/12/magnet-board.html</link>
+        <guid isPermaLink="true">/2014/12/magnet-board.html</guid>
+        
+        
+      </item>
     
       <item>
         <title>Jasmine Testing Framework</title>
@@ -17,38 +38,6 @@
         <pubDate>Thu, 11 Dec 2014 04:41:00 -0600</pubDate>
         <link>/2014/12/jasmine-testing-framework.html</link>
         <guid isPermaLink="true">/2014/12/jasmine-testing-framework.html</guid>
-        
-        
-      </item>
-    
-      <item>
-        <title>Code Academy Make Interactive Website</title>
-        <description>Dra---
-title: &quot;Code Academy: Make an Interactive Website&quot;
-layout: &quot;post&quot;
-permalink: &quot;/2014/12/code-academy-make-interactive-website.html&quot;
-uuid: &quot;7207004921721437608&quot;
-guid: &quot;tag:blogger.com,1999:blog-2609351362218351940.post-7207004921721437608&quot;
-date: &quot;2014-12-11 20:34:00&quot;
-updated: &quot;2014-12-11 20:34:28&quot;
-description: 
-blogger:
-    siteid: &quot;2609351362218351940&quot;
-    postid: &quot;7207004921721437608&quot;
-    comments: &quot;0&quot;
-categories: 
-author: 
-    name: &quot;Mary Briskin&quot;
-    url: &quot;https://plus.google.com/107701473444340691919?rel=author&quot;
-    image: &quot;//lh3.googleusercontent.com/-a5cam6dPXIY/AAAAAAAAAAI/AAAAAAAAAd4/1vBYBu0Sn2E/s512-c/photo.jpg&quot;
----
-
-&lt;div class=&quot;css-full-post-content js-full-post-content&quot;&gt;
-I had a feeling that I haven&#39;t been jQuery to its fullest potential!&lt;br /&gt;This tutorial outlined some of the cool jQuery functions that can make interacting with Javascript so much easier.&lt;br /&gt;&lt;br /&gt;&lt;div class=&quot;separator&quot; style=&quot;clear: both; text-align: center;&quot;&gt;&lt;a href=&quot;http://www.codecademy.com/en/skills/make-an-interactive-website/topics/your-first-program/jquery-introduction&quot; imageanchor=&quot;1&quot; style=&quot;clear: left; float: left; margin-bottom: 1em; margin-right: 1em;&quot;&gt;&lt;img border=&quot;0&quot; src=&quot;http://2.bp.blogspot.com/-2qRmLN_n12I/VIn2_gx94NI/AAAAAAAAAvs/4_2nbhZwKs0/s1600/Screen%2BShot%2B2014-12-11%2Bat%2B1.56.15%2BPM.png&quot; height=&quot;224&quot; width=&quot;320&quot; /&gt;&lt;/a&gt;&lt;/div&gt;&lt;br /&gt;&lt;br /&gt;&lt;span style=&quot;color: blue;&quot;&gt;Lessons Learned:&lt;/span&gt;&lt;br /&gt;&lt;span style=&quot;color: blue;&quot;&gt;1. jQuery animate function&lt;/span&gt;&lt;br /&gt;&lt;span style=&quot;color: blue;&quot;&gt;2. jQuery toggle function&lt;/span&gt;&lt;br /&gt;&lt;span style=&quot;color: blue;&quot;&gt;3. jQuery event handlers&lt;/span&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;
-&lt;/div&gt;</description>
-        <pubDate>Thu, 11 Dec 2014 00:00:00 -0600</pubDate>
-        <link>/2014/12/11/code-academy-make-interactive-website/</link>
-        <guid isPermaLink="true">/2014/12/11/code-academy-make-interactive-website/</guid>
         
         
       </item>
