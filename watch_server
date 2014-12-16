@@ -1,0 +1,4 @@
+#!/bin/bash
+bundle exec jekyll build --watch
+cd _site/
+http-server
