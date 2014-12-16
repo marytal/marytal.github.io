@@ -3,12 +3,12 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title>Ring Game</title>
+        <title>Keep Heroku Apps Awake</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">        
         <meta name="description" content="Ruby on Rails and Javascript developer for hire. 
 ">
         <link rel="canonical" 
-        href="/2014/12/ring-game.html">
+        href="/2014/12/keep-heroku-apps-alive.html">
         
         <!-- Harmony styles -->
         <link rel="stylesheet" type="text/css" href="/assets/css/main.css">
@@ -50,13 +50,31 @@
         <div class="page-content wc-container">
 	
 	<div class="post">
-		<h1>Ring Game</h1>
-		<span class="post-date">08 Dec 2014</span>
+		<h1>Keep Heroku Apps Awake</h1>
+		<span class="post-date">14 Dec 2014</span>
 		<div class="post">
-			<div class="css-full-post-content js-full-post-content">
-Visit game <a href="http://github.marytal.com/rings/ring.html" target="_blank">HERE</a><br />See Github <a href="https://github.com/marytal/marytal.github.io/tree/master/rings" target="_blank">HERE</a><br /><span style="color: blue;"><br /></span><span style="color: blue;">Lessons Learned:</span><br /><span style="color: blue;">1. Google analytics tracking</span><br /><span style="color: blue;">2. Custom shapes with KineticJS</span><br /><br />Problems with program:<br />1.When the mouse is moved quickly past the rings, the program doesn't register that it had intersected with it. This makes cheating very easy.<br />2. Since each level is randomly generated, it is possible for a level to be impossible.<br />3. When the screen size is small enough, the Next Level button can be made to be right next to the star which, again, makes cheating possible.<br /><br />Problem Fixes:<br />1. Register the mouse movement as a line instead of a point and check if the line intersects with the ring.<br />2. Set up safeguards regulating how close rings can be to one another.<br />3. Enable the size of the star, the player, and the radiuses of the rings to take into account the screen size.<br /><br /><div class="separator" style="clear: both; text-align: center;"><a href="http://github.marytal.com/rings/ring.html" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" src="http://4.bp.blogspot.com/-9yzp4E5xeEQ/VIYpWyPBE1I/AAAAAAAAAvQ/0Ahaf3Zho8I/s1600/Screen%2BShot%2B2014-12-03%2Bat%2B9.14.11%2BPM.png" height="590" width="640" /></a></div><br />
-</div>
+			I host my rails apps on <a href="https://www.heroku.com/" target="_blank">Heroku</a>, which is an awesome service.<br />
+It was becoming a problem though, that after an hour of disuse the apps would go into idle mode. When an app is idling, the time to start it up again ranges from 8 - 15 seconds, by which point many users just give up and click elsewhere.<br />
+<br />
+I fixed this by installing a Heroku add-on called <a href="https://devcenter.heroku.com/articles/scheduler#installing-the-add-on" target="_blank">Scheduler</a>. This add-on makes it possible to carry out tasks periodically. I then wrote a custom rake command that sends GET requests to all of my apps, keeping them from idling.<br />
+<br />
 
+<span style="color: blue;">Lessons Learned:</span><br />
+<br />
+<ol>
+<li><span style="color: blue;">Difference between web and worker dynos</span></li>
+<li><span style="color: blue;">Building custom rake tasks</span></li>
+<li><span style="color: blue;">How to use Heroku add-ons</span></li>
+</ol>
+<br />
+
+<div class="separator" style="clear: both; text-align: center;">
+<a href="http://3.bp.blogspot.com/-nv0o8sIlEAs/VI-e5kf3foI/AAAAAAAAAwM/sxHD3gIrr5I/s1600/Screen%2BShot%2B2014-12-15%2Bat%2B8.31.24%2BPM.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" src="http://3.bp.blogspot.com/-nv0o8sIlEAs/VI-e5kf3foI/AAAAAAAAAwM/sxHD3gIrr5I/s1600/Screen%2BShot%2B2014-12-15%2Bat%2B8.31.24%2BPM.png" height="310" width="640" /></a></div>
+<br />
+
+Now all of my Rails apps load instantaniously! Yaay! <br>
+
+Side Note: If you schedule too many tasks, Heroku will start charging you - so take care to monitor your usage. 
 		</div>
 	</div>
 
@@ -65,11 +83,6 @@ Visit game <a href="http://github.marytal.com/rings/ring.html" target="_blank">H
 	<div class="related">
 		<h4>Related Posts</h2>
 		<ul class="posts">
-		    
-		    <li>
-			  <span>14 Dec 2014 &raquo;</span>
-			  <a href="/2014/12/keep-heroku-apps-alive.html">Keep Heroku Apps Awake</a>
-		    </li>
 		    
 		    <li>
 			  <span>13 Dec 2014 &raquo;</span>
@@ -81,6 +94,11 @@ Visit game <a href="http://github.marytal.com/rings/ring.html" target="_blank">H
 			  <a href="/2014/12/jasmine-testing-framework.html">Jasmine Testing Framework</a>
 		    </li>
 		    
+		    <li>
+			  <span>08 Dec 2014 &raquo;</span>
+			  <a href="/2014/12/ring-game.html">Ring Game</a>
+		    </li>
+		    
 		</ul>
 	</div>
 	
@@ -88,13 +106,13 @@ Visit game <a href="http://github.marytal.com/rings/ring.html" target="_blank">H
 	<div class="post-footer">
 		<div class="column-1">
 			
-				<a href="/2014/11/gallery.html"><< Older</a>
+				<a href="/2014/12/magnet-board.html"><< Older</a>
 			
 		</div>
 		<div class="column-2"><a href="/ ">Home</a></div>
 		<div class="column-3">
 			
-				<a href="/2014/12/jasmine-testing-framework.html">Newer >></a>
+				<span>Newer >></span>
 			
 		</div>
 	</div>
