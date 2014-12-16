@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title>Keep Heroku Apps Awake</title>
+        <title>Keeping Heroku Apps Awake</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">        
         <meta name="description" content="Ruby on Rails and Javascript developer for hire. 
 ">
@@ -50,15 +50,27 @@
         <div class="page-content wc-container">
 	
 	<div class="post">
-		<h1>Keep Heroku Apps Awake</h1>
+		<h1>Keeping Heroku Apps Awake</h1>
 		<span class="post-date">14 Dec 2014</span>
 		<div class="post">
-			I host my rails apps on <a href="https://www.heroku.com/" target="_blank">Heroku</a>, which is an awesome service.<br />
-It was becoming a problem though, that after an hour of disuse the apps would go into idle mode. When an app is idling, the time to start it up again ranges from 8 - 15 seconds, by which point many users just give up and click elsewhere.<br />
+			<div class="css-full-post-content js-full-post-content">
+I host my Rails apps on <a href="https://www.heroku.com/" target="_blank">Heroku</a>, which is an awesome service.<br />
+It was becoming a problem though, that after an hour of disuse the apps would go into idle mode. Once an app is idling, the startup time ranges from 8 - 15 seconds, by which point many users just give up and click elsewhere.<br />
 <br />
-I fixed this by installing a Heroku add-on called <a href="https://devcenter.heroku.com/articles/scheduler#installing-the-add-on" target="_blank">Scheduler</a>. This add-on makes it possible to carry out tasks periodically. I then wrote a custom rake command that sends GET requests to all of my apps, keeping them from idling.<br />
-<br />
+I fixed this by creating yet another Rails app and writting a custom rake task that sends GET requests to all of my previous applications, keeping them from idling.<br /> 
 
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">desc</span> <span class="s2">&quot;This task is called by the Heroku scheduler add-on&quot;</span>
+<span class="n">task</span> <span class="ss">:send_requests</span> <span class="o">=&gt;</span> <span class="ss">:environment</span> <span class="k">do</span>
+  <span class="n">urls</span> <span class="o">=</span> <span class="o">[</span><span class="s1">&#39;http://loggit.marytal.com&#39;</span><span class="p">,</span> <span class="s1">&#39;http://oskar.marytal.com&#39;</span><span class="p">,</span> <span class="s1">&#39;http://magnetboard.marytal.com&#39;</span><span class="o">]</span> <span class="c1"># etc.</span>
+  <span class="n">urls</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">url</span><span class="o">|</span> 
+    <span class="no">HTTParty</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">);</span>
+  <span class="k">end</span>
+<span class="k">end</span></code></pre></div>
+
+
+To periodically schedule these requests, I installed a Heroku add-on called <a href="https://devcenter.heroku.com/articles/scheduler#installing-the-add-on" target="_blank">Scheduler</a>. All I had to do then was specify which rake task to run and at what frequency. Problem solved!
+<br>
+<br>
 <span style="color: blue;">Lessons Learned:</span><br />
 <br />
 <ol>
@@ -72,9 +84,11 @@ I fixed this by installing a Heroku add-on called <a href="https://devcenter.her
 <a href="http://3.bp.blogspot.com/-nv0o8sIlEAs/VI-e5kf3foI/AAAAAAAAAwM/sxHD3gIrr5I/s1600/Screen%2BShot%2B2014-12-15%2Bat%2B8.31.24%2BPM.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" src="http://3.bp.blogspot.com/-nv0o8sIlEAs/VI-e5kf3foI/AAAAAAAAAwM/sxHD3gIrr5I/s1600/Screen%2BShot%2B2014-12-15%2Bat%2B8.31.24%2BPM.png" height="310" width="640" /></a></div>
 <br />
 
-Now all of my Rails apps load instantaniously! Yaay! <br>
+<br>
 
 Side Note: If you schedule too many tasks, Heroku will start charging you - so take care to monitor your usage. 
+
+</div>
 		</div>
 	</div>
 
