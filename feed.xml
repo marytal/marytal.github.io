@@ -5,9 +5,81 @@
     <description></description>
     <link>/</link>
     <atom:link href="/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Tue, 16 Dec 2014 01:43:23 -0600</pubDate>
-    <lastBuildDate>Tue, 16 Dec 2014 01:43:23 -0600</lastBuildDate>
+    <pubDate>Tue, 16 Dec 2014 22:07:28 -0600</pubDate>
+    <lastBuildDate>Tue, 16 Dec 2014 22:07:28 -0600</lastBuildDate>
     <generator>Jekyll v2.4.0</generator>
+    
+      <item>
+        <title>Google Chrome Prank Extension</title>
+        <description>&lt;div class=&quot;css-full-post-content js-full-post-content&quot;&gt;
+  Next Cyber Monday will be a blast.&lt;br /&gt;
+  &lt;br /&gt;
+  &lt;a href=&quot;https://chrome.google.com/webstore/detail/confused-shopper-prank/mhamipanbofhcddlbjfkgkgigkekhjon&quot;&gt;Confused Shopper&lt;/a&gt; is a Chrome extension that changes all of the prices on your page to appear to be between $0.01 and $0.99. Secretly upload it to a friend&#39;s computer and enjoy their reaction when they discover the great new deals of the day.&lt;br /&gt;
+  &lt;div class=&quot;separator&quot; style=&quot;clear: both; text-align: center;&quot;&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;separator&quot; style=&quot;clear: both; text-align: center;&quot;&gt;
+  &lt;br /&gt;&lt;a href=&quot;https://chrome.google.com/webstore/detail/confused-shopper-prank/mhamipanbofhcddlbjfkgkgigkekhjon&quot; imageanchor=&quot;1&quot; style=&quot;margin-left: 1em; margin-right: 1em;&quot;&gt;&lt;img border=&quot;0&quot; src=&quot;http://1.bp.blogspot.com/-uS5BU3YTiOQ/VJD7fGWkTGI/AAAAAAAAAw8/PjvVp1OTDyQ/s1600/Screen%2BShot%2B2014-12-16%2Bat%2B9.40.17%2BPM.png&quot; height=&quot;404&quot; width=&quot;640&quot; /&gt;&lt;/a&gt;&lt;/div&gt;
+  &lt;div class=&quot;separator&quot; style=&quot;clear: both; text-align: center;&quot;&gt;
+  &lt;br /&gt;&lt;/div&gt;
+  &lt;div class=&quot;&quot; style=&quot;clear: both; text-align: left;&quot;&gt;
+  This was my first Chrome Extension so to get started, I read through Google&#39;s&amp;nbsp;&lt;a href=&quot;https://developer.chrome.com/extensions/getstarted&quot; target=&quot;_blank&quot;&gt;tutorial&lt;/a&gt;.&amp;nbsp;&lt;/div&gt;
+  &lt;div class=&quot;separator&quot; style=&quot;clear: both; text-align: left;&quot;&gt;
+  To capture all of the prices on the page I used a regular expression, to access and change them I used Javascript&#39;s String replace() method and innerHTML method.
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;activate&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;// captures all of the prices on the page&lt;/span&gt;
+  &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;prices&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;sr&quot;&gt;/[$](\.|\,|\d+)+/g&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; 
+  &lt;span class=&quot;c1&quot;&gt;//replaces them with randomly generated prices&lt;/span&gt;
+  &lt;span class=&quot;nb&quot;&gt;document&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;body&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;innerHTML&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;document&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;body&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;innerHTML&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;replace&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;prices&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;randomPrice&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; 
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+  &lt;div class=&quot;&quot; style=&quot;clear: both; text-align: left;&quot;&gt;
+  &lt;br /&gt;&lt;/div&gt;
+  &lt;div class=&quot;&quot; style=&quot;clear: both; text-align: left;&quot;&gt;
+  &lt;br /&gt;&lt;/div&gt;
+  &lt;div class=&quot;&quot; style=&quot;clear: both; text-align: left;&quot;&gt;
+  &lt;span style=&quot;color: blue;&quot;&gt;Lessons Learned:&lt;/span&gt;&lt;/div&gt;
+  &lt;div class=&quot;separator&quot; style=&quot;clear: both; text-align: left;&quot;&gt;
+  &lt;/div&gt;
+  &lt;ol&gt;
+  &lt;li&gt;&lt;span style=&quot;color: blue;&quot;&gt;Calling the Javascript String replace() method with a function&lt;/span&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;span style=&quot;color: blue;&quot;&gt;Regular Expressions for a repeating patterns&lt;/span&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;span style=&quot;color: blue;&quot;&gt;Basic setup of a Chrome extension&lt;/span&gt;&lt;/li&gt;
+  &lt;/ol&gt;
+  &lt;br /&gt;
+  &lt;div class=&quot;separator&quot; style=&quot;clear: both; text-align: left;&quot;&gt;
+  &lt;br /&gt;&lt;/div&gt;
+  &lt;span style=&quot;color: red;&quot;&gt;Issues:&lt;/span&gt;&lt;br /&gt;
+  &lt;br /&gt;
+  &lt;ol&gt;
+  &lt;li&gt;&lt;span style=&quot;color: red;&quot;&gt;Something like &#39;$5 billion&#39; would turn into something like &#39;$0.45 billion&#39;, which looks silly.&lt;/span&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;span style=&quot;color: red;&quot;&gt;Since prices are randomly generated, if a page displays the price of a single item twice the two values will likely be different.&lt;/span&gt;&lt;/li&gt;
+  &lt;/ol&gt;
+  &lt;br /&gt;
+  &lt;br /&gt;
+  Fixes/additional features to add:&lt;br /&gt;&lt;br&gt;
+  &lt;ol&gt;
+  &lt;li&gt;Include conditions for the words &#39;billion, million, hundred&#39; etc. and change accordingly.&lt;/li&gt;
+  &lt;li&gt;Keep equal prices equal (i.e. $10 and $10 will equal $0.22 and $0.22).&amp;nbsp;&lt;/li&gt;
+  &lt;li&gt;Let users choose the range of prices they want to display.&lt;/li&gt;
+  &lt;li&gt;Add functionality for turning the extension off&lt;/li&gt;
+  &lt;li&gt;Including a safeguard to keep people from actually buying anything when they are unaware of the real price.&lt;/li&gt;
+  &lt;/ol&gt;
+  &lt;br /&gt;
+  &lt;br /&gt;
+
+  Get the Confused Shopper Extension &lt;a href=&quot;https://chrome.google.com/webstore/detail/confused-shopper-prank/mhamipanbofhcddlbjfkgkgigkekhjon&quot;&gt;HERE&lt;/a&gt;. 
+
+  &lt;div class=&quot;separator&quot; style=&quot;clear: both; text-align: center;&quot;&gt;
+  &lt;a href=&quot;http://2.bp.blogspot.com/-CJFUWY5DAJc/VJD7ac7ZO7I/AAAAAAAAAw0/OE-ufXRoH8I/s1600/Screen%2BShot%2B2014-12-16%2Bat%2B9.37.37%2BPM.png&quot; imageanchor=&quot;1&quot; style=&quot;margin-left: 1em; margin-right: 1em;&quot;&gt;&lt;img border=&quot;0&quot; src=&quot;http://2.bp.blogspot.com/-CJFUWY5DAJc/VJD7ac7ZO7I/AAAAAAAAAw0/OE-ufXRoH8I/s1600/Screen%2BShot%2B2014-12-16%2Bat%2B9.37.37%2BPM.png&quot; height=&quot;314&quot; width=&quot;640&quot; /&gt;&lt;/a&gt;&lt;/div&gt;
+
+&lt;/div&gt;</description>
+        <pubDate>Tue, 16 Dec 2014 22:41:00 -0600</pubDate>
+        <link>/2014/12/chrome-extension-prank.html</link>
+        <guid isPermaLink="true">/2014/12/chrome-extension-prank.html</guid>
+        
+        
+      </item>
     
       <item>
         <title>Keeping Heroku Apps Awake</title>
@@ -150,18 +222,6 @@ Visit game &lt;a href=&quot;http://github.marytal.com/rings/ring.html&quot; targ
         <pubDate>Mon, 24 Nov 2014 01:51:00 -0600</pubDate>
         <link>/2014/11/movie-log.html</link>
         <guid isPermaLink="true">/2014/11/movie-log.html</guid>
-        
-        
-      </item>
-    
-      <item>
-        <title>Simple Lightbox</title>
-        <description>&lt;div class=&quot;css-full-post-content js-full-post-content&quot;&gt;
-A simple lightbox made from HTML, CSS, and Javascript. No jQuery or plugins.&lt;br /&gt;Video below demonstrates functionality.&lt;br /&gt;&lt;br /&gt;&lt;ol&gt;&lt;li&gt;Click an image to open its lightbox&lt;/li&gt;&lt;li&gt;Click left and right arrows to traverse images, X to escape&lt;/li&gt;&lt;li&gt;Press left and right arrow keys to traverse images, ESC to escape&lt;/li&gt;&lt;li&gt;While scrolling through page, lightbox stays fixed to centre&lt;/li&gt;&lt;/ol&gt;&lt;br /&gt;&lt;br /&gt;&lt;iframe allowfullscreen=&quot;&quot; frameborder=&quot;0&quot; height=&quot;390&quot; src=&quot;//www.youtube.com/embed/mtKGxXt9UI8&quot; width=&quot;640&quot;&gt;&lt;/iframe&gt;&lt;br /&gt;&lt;br /&gt;Visit &lt;a href=&quot;http://github.marytal.com/simple_lightbox/lightbox.html&quot; target=&quot;_blank&quot;&gt;Simple Lightbox&lt;/a&gt; here.&lt;br /&gt;Visit &lt;a href=&quot;https://github.com/marytal/marytal.github.io/tree/master/simple_lightbox&quot; target=&quot;_blank&quot;&gt;Github Directory&lt;/a&gt;&amp;nbsp;to see code.&lt;br /&gt;&lt;br /&gt;
-&lt;/div&gt;</description>
-        <pubDate>Wed, 19 Nov 2014 22:41:00 -0600</pubDate>
-        <link>/2014/11/simple-lightbox.html</link>
-        <guid isPermaLink="true">/2014/11/simple-lightbox.html</guid>
         
         
       </item>
