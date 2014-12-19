@@ -5,16 +5,16 @@
     <description></description>
     <link>/</link>
     <atom:link href="/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Thu, 18 Dec 2014 18:52:05 -0600</pubDate>
-    <lastBuildDate>Thu, 18 Dec 2014 18:52:05 -0600</lastBuildDate>
+    <pubDate>Thu, 18 Dec 2014 19:27:12 -0600</pubDate>
+    <lastBuildDate>Thu, 18 Dec 2014 19:27:12 -0600</lastBuildDate>
     <generator>Jekyll v2.4.0</generator>
     
       <item>
         <title>Is It Raining? Another Chrome Extension</title>
         <description>&lt;div class=&quot;css-full-post-content js-full-post-content&quot;&gt;
-  I liked making my last Chrome extension and thought I&#39;d give it another go. This extension determines the client&#39;s location, whether it&#39;s raining near him or her, and if it is, it plays a simple raining animation on the current page to let them know.&lt;br /&gt;
+  I enjoyed making my last one and thought I&#39;d give it another go. This extension plays a simple animation (falling rain) over the client&#39;s page to let him or her know whether it is raining in his or her region. See video for demonstration.&lt;br /&gt;
   &lt;br /&gt;
-  Get it &lt;a href=&quot;https://chrome.google.com/webstore/detail/is-it-raining/nfbemkbodblloganccnncedoenadnjgo&quot; target=&quot;_blank&quot;&gt;HERE&lt;/a&gt;.&lt;br /&gt;
+  Get &#39;Is it Raining?&#39; &lt;a href=&quot;https://chrome.google.com/webstore/detail/is-it-raining/nfbemkbodblloganccnncedoenadnjgo&quot; target=&quot;_blank&quot;&gt;HERE&lt;/a&gt;.&lt;br /&gt;
   &lt;br /&gt;
   &lt;iframe allowfullscreen=&quot;&quot; frameborder=&quot;0&quot; height=&quot;390&quot; src=&quot;//www.youtube.com/embed/0RMx5KZFNM4&quot; width=&quot;640&quot;&gt;&lt;/iframe&gt;
 
@@ -22,7 +22,7 @@
   &lt;br /&gt;
   I used Canvas to animate the falling rain.&lt;br /&gt;
   &lt;br /&gt;
-  Once I finished that, I got working on using jQuery to send a GET request to &lt;a href=&quot;http://ipinfo.io/&quot;&gt;http://ipinfo.io&lt;/a&gt; to acquire, you guessed it, IP info. Learned a small lesson on JSONP on the way.&lt;br /&gt;
+  Once I finished that, I wrote a function, using jQuery, to send a GET request to &lt;a href=&quot;http://ipinfo.io/&quot;&gt;http://ipinfo.io&lt;/a&gt;, which returned a JSON object containing the user&#39;s IP address. Learned a small lesson on JSONP on the way.&lt;br /&gt;
   &lt;br /&gt;
 
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;find_ip_address&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
@@ -52,6 +52,13 @@
   &lt;br /&gt;
   &lt;br /&gt;
   &lt;br /&gt;
+In order to avoid annoying the client with a continuous rainfall, I wrote the make_it_rain() function to only run for a few seconds. However, every 20 minutes, setInterval calls an anonymous function, which calls the check_weather() function (seen above) to determine whether it is still raining. 
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;nx&quot;&gt;setInterval&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;check_weather&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1000&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;60&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;20&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
   &lt;br /&gt;
   &lt;br /&gt;
   &lt;br /&gt;
@@ -176,8 +183,8 @@ Side Note: If you schedule too many tasks, Heroku will start charging you - so t
 
 &lt;/div&gt;</description>
         <pubDate>Sun, 14 Dec 2014 22:41:00 -0600</pubDate>
-        <link>/2014/12/keep-heroku-apps-alive.html</link>
-        <guid isPermaLink="true">/2014/12/keep-heroku-apps-alive.html</guid>
+        <link>/2014/12/keeping-heroku-apps-awake.html</link>
+        <guid isPermaLink="true">/2014/12/keeping-heroku-apps-awake.html</guid>
         
         
       </item>
@@ -225,8 +232,16 @@ Visit game &lt;a href=&quot;http://github.marytal.com/rings/ring.html&quot; targ
       <item>
         <title>Gallery</title>
         <description>&lt;div class=&quot;css-full-post-content js-full-post-content&quot;&gt;
-&lt;h2&gt;&lt;a href=&quot;http://oskar.marytal.com/&quot; target=&quot;_blank&quot;&gt;One Page Website&lt;/a&gt;&lt;/h2&gt;I made a website for a friend who wanted a place to display pictures of his welding projects, using Ruby on Rails and Knockout. This time I used Knockout to make a working lighbox instead of changing the lightbox&#39;s class from &quot;visible&quot; to &quot;invisible&quot;. It was both more and less difficult.&lt;br /&gt;&lt;br /&gt;&lt;i&gt;More difficult because:&lt;/i&gt;&lt;br /&gt;I accidentally included an outdated knockout gem which produced a few errors that I just couldn&#39;t figure out. I also didn&#39;t know about Knockout&#39;s $parent and $child bindings until after I had figured out a convoluted way of producing the same effect on my own.&lt;br /&gt;&lt;i&gt;&lt;br /&gt;&lt;/i&gt;&lt;i&gt;Less difficult because:&lt;/i&gt;&lt;br /&gt;Knockout&#39;s &#39;foreach&#39; and &#39;click&#39; bindings allowed me to easily move from image to image. I would say the overall time this took me, even with the difficulties, was less than the previous implementation of the same lightbox.&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;span style=&quot;color: blue;&quot;&gt;Lessons Learned:&lt;/span&gt;&lt;br /&gt;&lt;span style=&quot;color: blue;&quot;&gt;1. How to use $parent and $child binding contexts in KnockoutJS&lt;/span&gt;&lt;br /&gt;&lt;span style=&quot;color: blue;&quot;&gt;2.&amp;nbsp;&lt;span style=&quot;text-indent: -18pt;&quot;&gt;How to use anchors to jump to numerous points on a page&lt;/span&gt;&lt;/span&gt;&lt;br /&gt;&lt;span style=&quot;color: blue;&quot;&gt;&lt;span style=&quot;text-indent: -18pt;&quot;&gt;3.&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;text-indent: -18pt;&quot;&gt;Improved understanding of HTML positioning and CSS features&lt;/span&gt;&lt;/span&gt;&lt;br /&gt;&lt;span style=&quot;text-indent: -18pt;&quot;&gt;&lt;br /&gt;&lt;/span&gt;&lt;div class=&quot;MsoListParagraphCxSpLast&quot; style=&quot;mso-list: l0 level1 lfo1; text-indent: -18.0pt;&quot;&gt;&lt;o:p&gt;&lt;/o:p&gt;&lt;/div&gt;&lt;!--EndFragment--&gt;
-&lt;/div&gt;</description>
+&lt;h2&gt;&lt;a href=&quot;http://oskar.marytal.com/&quot; target=&quot;_blank&quot;&gt;One Page Website&lt;/a&gt;&lt;/h2&gt;I made a website for a friend who wanted a place to display pictures of his welding projects, using Ruby on Rails and Knockout. This time I used Knockout to make a working lighbox instead of changing the lightbox&#39;s class from &quot;visible&quot; to &quot;invisible&quot;. It was both more and less difficult.&lt;br /&gt;&lt;br /&gt;&lt;i&gt;More difficult because:&lt;/i&gt;&lt;br /&gt;I accidentally included an outdated knockout gem which produced a few errors that I just couldn&#39;t figure out. I also didn&#39;t know about Knockout&#39;s $parent and $child bindings until after I had figured out a convoluted way of producing the same effect on my own.&lt;br /&gt;&lt;i&gt;&lt;br /&gt;&lt;/i&gt;&lt;i&gt;Less difficult because:&lt;/i&gt;&lt;br /&gt;Knockout&#39;s &#39;foreach&#39; and &#39;click&#39; bindings allowed me to easily move from image to image. I would say the overall time this took me, even with the difficulties, was less than the previous implementation of the same lightbox.&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;
+
+If he wants to add images my friend, the welder, can go to a secret URL. There he has the option to either upload an image from his computer or provide an image url. 
+&lt;img src=&quot;/assets/css/images/gallery.png&quot;&gt;
+
+&lt;span style=&quot;color: blue;&quot;&gt;Lessons Learned:&lt;/span&gt;&lt;br /&gt;&lt;span style=&quot;color: blue;&quot;&gt;1. How to use $parent and $child binding contexts in KnockoutJS&lt;/span&gt;&lt;br /&gt;&lt;span style=&quot;color: blue;&quot;&gt;2.&amp;nbsp;&lt;span style=&quot;text-indent: -18pt;&quot;&gt;How to use anchors to jump to numerous points on a page&lt;/span&gt;&lt;/span&gt;&lt;br /&gt;&lt;span style=&quot;color: blue;&quot;&gt;&lt;span style=&quot;text-indent: -18pt;&quot;&gt;3.&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;text-indent: -18pt;&quot;&gt;Improved understanding of HTML positioning and CSS features&lt;/span&gt;&lt;/span&gt;&lt;br /&gt;&lt;span style=&quot;text-indent: -18pt;&quot;&gt;&lt;br /&gt;&lt;/span&gt;&lt;div class=&quot;MsoListParagraphCxSpLast&quot; style=&quot;mso-list: l0 level1 lfo1; text-indent: -18.0pt;&quot;&gt;&lt;o:p&gt;&lt;/o:p&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+
+</description>
         <pubDate>Fri, 28 Nov 2014 17:15:00 -0600</pubDate>
         <link>/2014/11/gallery.html</link>
         <guid isPermaLink="true">/2014/11/gallery.html</guid>

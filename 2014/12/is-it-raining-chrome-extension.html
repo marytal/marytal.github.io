@@ -54,9 +54,9 @@
 		<span class="post-date">18 Dec 2014</span>
 		<div class="post">
 			<div class="css-full-post-content js-full-post-content">
-  I liked making my last Chrome extension and thought I'd give it another go. This extension determines the client's location, whether it's raining near him or her, and if it is, it plays a simple raining animation on the current page to let them know.<br />
+  I enjoyed making my last one and thought I'd give it another go. This extension plays a simple animation (falling rain) over the client's page to let him or her know whether it is raining in his or her region. See video for demonstration.<br />
   <br />
-  Get it <a href="https://chrome.google.com/webstore/detail/is-it-raining/nfbemkbodblloganccnncedoenadnjgo" target="_blank">HERE</a>.<br />
+  Get 'Is it Raining?' <a href="https://chrome.google.com/webstore/detail/is-it-raining/nfbemkbodblloganccnncedoenadnjgo" target="_blank">HERE</a>.<br />
   <br />
   <iframe allowfullscreen="" frameborder="0" height="390" src="//www.youtube.com/embed/0RMx5KZFNM4" width="640"></iframe>
 
@@ -64,7 +64,7 @@
   <br />
   I used Canvas to animate the falling rain.<br />
   <br />
-  Once I finished that, I got working on using jQuery to send a GET request to <a href="http://ipinfo.io/">http://ipinfo.io</a> to acquire, you guessed it, IP info. Learned a small lesson on JSONP on the way.<br />
+  Once I finished that, I wrote a function, using jQuery, to send a GET request to <a href="http://ipinfo.io/">http://ipinfo.io</a>, which returned a JSON object containing the user's IP address. Learned a small lesson on JSONP on the way.<br />
   <br />
 
 <div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">function</span> <span class="nx">find_ip_address</span><span class="p">()</span> <span class="p">{</span>
@@ -94,6 +94,13 @@
   <br />
   <br />
   <br />
+In order to avoid annoying the client with a continuous rainfall, I wrote the make_it_rain() function to only run for a few seconds. However, every 20 minutes, setInterval calls an anonymous function, which calls the check_weather() function (seen above) to determine whether it is still raining. 
+
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">setInterval</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="nx">check_weather</span><span class="p">();</span>
+<span class="p">},</span> <span class="mi">1000</span> <span class="o">*</span> <span class="mi">60</span> <span class="o">*</span> <span class="mi">20</span><span class="p">);</span></code></pre></div>
+
+
   <br />
   <br />
   <br />
@@ -116,7 +123,7 @@
 		    
 		    <li>
 			  <span>14 Dec 2014 &raquo;</span>
-			  <a href="/2014/12/keep-heroku-apps-alive.html">Keeping Heroku Apps Awake</a>
+			  <a href="/2014/12/keeping-heroku-apps-awake.html">Keeping Heroku Apps Awake</a>
 		    </li>
 		    
 		    <li>
