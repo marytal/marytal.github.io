@@ -5,9 +5,65 @@
     <description></description>
     <link>/</link>
     <atom:link href="/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Tue, 16 Dec 2014 22:07:28 -0600</pubDate>
-    <lastBuildDate>Tue, 16 Dec 2014 22:07:28 -0600</lastBuildDate>
+    <pubDate>Thu, 18 Dec 2014 18:52:05 -0600</pubDate>
+    <lastBuildDate>Thu, 18 Dec 2014 18:52:05 -0600</lastBuildDate>
     <generator>Jekyll v2.4.0</generator>
+    
+      <item>
+        <title>Is It Raining? Another Chrome Extension</title>
+        <description>&lt;div class=&quot;css-full-post-content js-full-post-content&quot;&gt;
+  I liked making my last Chrome extension and thought I&#39;d give it another go. This extension determines the client&#39;s location, whether it&#39;s raining near him or her, and if it is, it plays a simple raining animation on the current page to let them know.&lt;br /&gt;
+  &lt;br /&gt;
+  Get it &lt;a href=&quot;https://chrome.google.com/webstore/detail/is-it-raining/nfbemkbodblloganccnncedoenadnjgo&quot; target=&quot;_blank&quot;&gt;HERE&lt;/a&gt;.&lt;br /&gt;
+  &lt;br /&gt;
+  &lt;iframe allowfullscreen=&quot;&quot; frameborder=&quot;0&quot; height=&quot;390&quot; src=&quot;//www.youtube.com/embed/0RMx5KZFNM4&quot; width=&quot;640&quot;&gt;&lt;/iframe&gt;
+
+  &lt;br /&gt;
+  &lt;br /&gt;
+  I used Canvas to animate the falling rain.&lt;br /&gt;
+  &lt;br /&gt;
+  Once I finished that, I got working on using jQuery to send a GET request to &lt;a href=&quot;http://ipinfo.io/&quot;&gt;http://ipinfo.io&lt;/a&gt; to acquire, you guessed it, IP info. Learned a small lesson on JSONP on the way.&lt;br /&gt;
+  &lt;br /&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;find_ip_address&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;http://ipinfo.io&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;response&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;nx&quot;&gt;user_ip&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;response&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;ip&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;jsonp&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+  &lt;br /&gt;
+  I then wrote a function to send a GET request to &lt;a href=&quot;http://api.worldweatheronline.com/&quot;&gt;http://api.worldweatheronline.com&lt;/a&gt;&amp;nbsp;, filling in the user&#39;s IP address and my key as parameters.&lt;br /&gt;
+  &lt;br /&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;check_weather&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(){&lt;/span&gt;
+
+  &lt;span class=&quot;nx&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;http://api.worldweatheronline.com/free/v2/weather.ashx?key=xxxx.xxxx.xxxx&amp;amp;q=&amp;quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;user_ip&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;&amp;amp;format=json&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;response&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;response&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;error&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
+      &lt;span class=&quot;c1&quot;&gt;// check to see if weather data for client&amp;#39;s geographical is available.&lt;/span&gt;
+      &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;No weather data for your region. Sorries!&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;response&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;current_condition&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;precipMM&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
+      &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;it&amp;#39;s raiiinin!&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+      &lt;span class=&quot;c1&quot;&gt;// if there is precipitation, start the rain animation&lt;/span&gt;
+      &lt;span class=&quot;nx&quot;&gt;make_it_rain&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;jsonp&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+  &lt;br /&gt;
+  &lt;br /&gt;
+  &lt;br /&gt;
+  &lt;br /&gt;
+  &lt;br /&gt;
+  &lt;br /&gt;
+  &lt;br /&gt;
+
+&lt;/div&gt;</description>
+        <pubDate>Thu, 18 Dec 2014 22:41:00 -0600</pubDate>
+        <link>/2014/12/is-it-raining-chrome-extension.html</link>
+        <guid isPermaLink="true">/2014/12/is-it-raining-chrome-extension.html</guid>
+        
+        
+      </item>
     
       <item>
         <title>Google Chrome Prank Extension</title>
@@ -210,18 +266,6 @@ Visit game &lt;a href=&quot;http://github.marytal.com/rings/ring.html&quot; targ
         <pubDate>Tue, 25 Nov 2014 08:25:00 -0600</pubDate>
         <link>/2014/11/kinetic-js.html</link>
         <guid isPermaLink="true">/2014/11/kinetic-js.html</guid>
-        
-        
-      </item>
-    
-      <item>
-        <title>Movie Log</title>
-        <description>&lt;div class=&quot;css-full-post-content js-full-post-content&quot;&gt;
-&lt;span style=&quot;font-size: large;&quot;&gt;Visit my&amp;nbsp;&lt;a href=&quot;http://loggit.marytal.com/welcome&quot;&gt;Movie Log&lt;/a&gt;!&lt;/span&gt;&lt;br /&gt;&lt;br /&gt;Below is a summary of what I learned in the making of &lt;i&gt;&lt;a href=&quot;http://loggit.marytal.com/welcome&quot; target=&quot;_blank&quot;&gt;this&lt;/a&gt;&lt;/i&gt; app, as well as a snapshot of its functionality. I&#39;d suggest looking through the app before reading.&lt;br /&gt;&lt;br /&gt;&lt;b&gt;Nokogiri&lt;/b&gt;&lt;br /&gt;&lt;br /&gt;To acquire a list of most popular movies in the last 30 years I used Nokogiri to parse movie titles from &lt;i&gt;http://www.boxofficemojo.com/yearly/chart/?page=1&amp;amp;view=releasedate&amp;amp;view2=domestic&amp;amp;yr=2014&amp;amp;p=.htm&lt;/i&gt;&amp;nbsp;(with page and year parameters changing). The resulting text file was used for the autocomplete function below.&lt;br /&gt;&lt;br /&gt;&lt;span style=&quot;color: blue;&quot;&gt;Lessons Learned:&lt;/span&gt;&lt;br /&gt;&lt;span style=&quot;color: blue;&quot;&gt;1. How to use Unix &amp;gt; operator to output results into a text file&lt;/span&gt;&lt;br /&gt;&lt;span style=&quot;color: blue;&quot;&gt;2. Using querySelectorAll to find a CSS selector for Nokogiri&#39;s css method&lt;/span&gt;&lt;br /&gt;&lt;span style=&quot;color: blue;&quot;&gt;3. Using HTTParty to make HTTP requests&lt;/span&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;b&gt;Autocomplete&lt;/b&gt;&lt;br /&gt;&lt;br /&gt;&lt;div class=&quot;separator&quot; style=&quot;clear: both; text-align: center;&quot;&gt;&lt;a href=&quot;http://3.bp.blogspot.com/-94IoR3u8Ux4/VHKGePSZsKI/AAAAAAAAAkw/SmgKEvR6hno/s1600/Screen%2BShot%2B2014-11-23%2Bat%2B6.27.14%2BPM.png&quot; imageanchor=&quot;1&quot; style=&quot;margin-left: 1em; margin-right: 1em;&quot;&gt;&lt;img border=&quot;0&quot; src=&quot;http://3.bp.blogspot.com/-94IoR3u8Ux4/VHKGePSZsKI/AAAAAAAAAkw/SmgKEvR6hno/s1600/Screen%2BShot%2B2014-11-23%2Bat%2B6.27.14%2BPM.png&quot; height=&quot;62&quot; width=&quot;640&quot; /&gt;&lt;/a&gt;&lt;/div&gt;&lt;br /&gt;When a user begins typing out a movie&#39;s title into the input field (shown above), jQuery makes a request to my application&#39;s API endpoint, which returns the top five titles that most closely match the input value, determined via a regular expression. jQuery&#39;s autocomplete widget dropdown menu appears with the results.&lt;br /&gt;&lt;br /&gt;The submitted value is then sent to Rotten Tomatoes&#39; APIs to retrieve movie attributes.&lt;br /&gt;&lt;br /&gt;The dropdown is needed to A) improve user experience and B) send more expressive values to Rotten Tomatoes&#39; API (&quot;Harry Potter and the Sorcerer&#39;s Stone&quot; VS. &quot;Harry Potter&quot;).&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;span style=&quot;color: blue;&quot;&gt;Lessons learned:&lt;/span&gt;&lt;br /&gt;&lt;span style=&quot;color: blue;&quot;&gt;1. How to make a relative path in Ruby on Rails&lt;/span&gt;&lt;br /&gt;&lt;span style=&quot;color: blue;&quot;&gt;2. The value of responding with a JSON object&lt;/span&gt;&lt;br /&gt;&lt;span style=&quot;color: blue;&quot;&gt;3. Don&#39;t use the passive voice or else you&#39;ll sound politician-y&lt;/span&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;b&gt;Knockout&lt;/b&gt;&lt;br /&gt;&lt;br /&gt;Once the information from Rotten Tomatoes is received, it is parsed and automatically assigned to the movie&#39;s proper attributes.&lt;br /&gt;&lt;br /&gt;&lt;div class=&quot;separator&quot; style=&quot;clear: both; text-align: center;&quot;&gt;&lt;a href=&quot;http://3.bp.blogspot.com/-XkUGW80-qD0/VHKIHrES0CI/AAAAAAAAAk8/nQJvdtd6lrM/s1600/Screen%2BShot%2B2014-11-23%2Bat%2B7.19.26%2BPM.png&quot; imageanchor=&quot;1&quot; style=&quot;margin-left: 1em; margin-right: 1em;&quot;&gt;&lt;img border=&quot;0&quot; src=&quot;http://3.bp.blogspot.com/-XkUGW80-qD0/VHKIHrES0CI/AAAAAAAAAk8/nQJvdtd6lrM/s1600/Screen%2BShot%2B2014-11-23%2Bat%2B7.19.26%2BPM.png&quot; height=&quot;426&quot; width=&quot;640&quot; /&gt;&lt;/a&gt;&lt;/div&gt;&lt;br /&gt;&lt;br /&gt;The user can then fill in the empty fields as well as change those that have been filled automatically. To achieve this I used &lt;a href=&quot;http://knockoutjs.com/&quot; target=&quot;_blank&quot;&gt;Knockout&lt;/a&gt;, a javascript library that allowed any changes made to the values to be automatically detected and saved. &lt;br /&gt;&lt;br /&gt;&lt;div class=&quot;separator&quot; style=&quot;clear: both; text-align: center;&quot;&gt;&lt;a href=&quot;http://1.bp.blogspot.com/-fVUW3YAvjYY/VHKJIJnuRdI/AAAAAAAAAlE/BSnNxrd_zTw/s1600/Screen%2BShot%2B2014-11-23%2Bat%2B7.25.14%2BPM.png&quot; imageanchor=&quot;1&quot; style=&quot;margin-left: 1em; margin-right: 1em;&quot;&gt;&lt;img border=&quot;0&quot; src=&quot;http://1.bp.blogspot.com/-fVUW3YAvjYY/VHKJIJnuRdI/AAAAAAAAAlE/BSnNxrd_zTw/s1600/Screen%2BShot%2B2014-11-23%2Bat%2B7.25.14%2BPM.png&quot; height=&quot;170&quot; width=&quot;640&quot; /&gt;&lt;/a&gt;&lt;/div&gt;&lt;br /&gt;&lt;span style=&quot;color: blue;&quot;&gt;Lessons Learned:&lt;/span&gt;&lt;br /&gt;&lt;span style=&quot;color: blue;&quot;&gt;1. How to use Knockout bindings&lt;/span&gt;&lt;br /&gt;&lt;span style=&quot;color: blue;&quot;&gt;2. How to use Knockout computed values to send jQuery POST requests&lt;/span&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;b&gt;Lightbox&lt;/b&gt;&lt;br /&gt;&lt;br /&gt;I made a post earlier about a &lt;a href=&quot;/2014/11/simple-lightbox.html&quot; target=&quot;_blank&quot;&gt;lightbox&lt;/a&gt;&amp;nbsp;that I had made in preparation for this project. I wish I had known about Knockout back then, because it would have saved me making &quot;visible&quot; and &quot;invisible&quot; classes to hide and show the lightbox. The Knockout library has an &quot;if&quot; binding that would make displaying/hiding the lightbox a simpler process.&lt;br /&gt;&lt;br /&gt;&lt;div class=&quot;separator&quot; style=&quot;clear: both; text-align: center;&quot;&gt;&lt;a href=&quot;http://1.bp.blogspot.com/-cz2eQjLeKt4/VHKMRiixV1I/AAAAAAAAAlQ/JBqlikB_4fA/s1600/Screen%2BShot%2B2014-11-23%2Bat%2B7.35.45%2BPM.png&quot; imageanchor=&quot;1&quot; style=&quot;clear: left; float: left; margin-bottom: 1em; margin-right: 1em;&quot;&gt;&lt;img border=&quot;0&quot; src=&quot;http://1.bp.blogspot.com/-cz2eQjLeKt4/VHKMRiixV1I/AAAAAAAAAlQ/JBqlikB_4fA/s1600/Screen%2BShot%2B2014-11-23%2Bat%2B7.35.45%2BPM.png&quot; height=&quot;395&quot; width=&quot;400&quot; /&gt;&lt;/a&gt;&lt;/div&gt;&lt;br /&gt;&lt;span style=&quot;color: blue;&quot;&gt;Lessons Learned:&lt;/span&gt;&lt;br /&gt;&lt;span style=&quot;color: blue;&quot;&gt;1. Knockout &quot;Foreach&quot;&lt;/span&gt;&lt;br /&gt;&lt;span style=&quot;color: blue;&quot;&gt;2. Improved understanding of Javascript classes and methods&lt;/span&gt;&lt;br /&gt;&lt;span style=&quot;color: blue;&quot;&gt;3. Overflow: scroll;&lt;/span&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;Visit the movie log &lt;a href=&quot;http://loggit.marytal.com/welcome&quot; target=&quot;_blank&quot;&gt;HERE&lt;/a&gt;&lt;br /&gt;Visit my github &lt;a href=&quot;https://github.com/marytal&quot; target=&quot;_blank&quot;&gt;HERE&lt;/a&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;
-&lt;/div&gt;</description>
-        <pubDate>Mon, 24 Nov 2014 01:51:00 -0600</pubDate>
-        <link>/2014/11/movie-log.html</link>
-        <guid isPermaLink="true">/2014/11/movie-log.html</guid>
         
         
       </item>

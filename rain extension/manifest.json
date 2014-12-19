@@ -1,0 +1,20 @@
+{
+  "name": "Is it Raining?",
+  "description": "Animates rain for a few seconds to let you know if it is raining near you.",
+  "version": "1.0",
+  "permissions": [
+    "activeTab"
+  ],
+
+  "content_scripts": [
+    {
+      "matches": ["http://*/*"],
+      "js": ["jquery-1.11.2.js","rain.js"]
+    }
+  ],
+
+  "browser_action": {
+    "default_title": "Make this page red"
+  },
+  "manifest_version": 2
+}

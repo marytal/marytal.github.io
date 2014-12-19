@@ -52,6 +52,31 @@
   		
   			<div class="post">
     			<h3 class="post-title">
+			      <a href="/2014/12/is-it-raining-chrome-extension.html">
+			        Is It Raining? Another Chrome Extension
+			      </a>
+    			</h3>
+
+    			<span class="post-date">18 Dec 2014</span>    			
+  				<p>
+	  				<div class="css-full-post-content js-full-post-content">
+  I liked making my last Chrome extension and thought I'd give it another go. This extension determines the client's location, whether it's raining near him or her, and if it is, it plays a simple raining animation on the current page to let them know.<br />
+  <br />
+  Get it <a href="https://chrome.google.com/webstore/detail/is-it-raining/nfbemkbodblloganccnncedoenadnjgo" target="_blank">HERE</a>.<br />
+  <br />
+  <iframe allowfullscreen="" frameborder="0" height="390" src="//www.youtube.com/embed/0RMx5KZFNM4" width="640"></iframe>
+
+	
+  				</p>
+  				<p>
+  					<a href="/2014/12/is-it-raining-chrome-extension.html" title="Is It Raining? Another Chrome Extension">
+  						Read More
+					</a>
+  				</p>
+  			</div>
+  		
+  			<div class="post">
+    			<h3 class="post-title">
 			      <a href="/2014/12/chrome-extension-prank.html">
 			        Google Chrome Prank Extension
 			      </a>
@@ -256,28 +281,6 @@ Visit game <a href="http://github.marytal.com/rings/ring.html" target="_blank">H
   				</p>
   				<p>
   					<a href="/2014/11/kinetic-js.html" title="KineticJS">
-  						Read More
-					</a>
-  				</p>
-  			</div>
-  		
-  			<div class="post">
-    			<h3 class="post-title">
-			      <a href="/2014/11/movie-log.html">
-			        Movie Log
-			      </a>
-    			</h3>
-
-    			<span class="post-date">24 Nov 2014</span>    			
-  				<p>
-	  				<div class="css-full-post-content js-full-post-content">
-<span style="font-size: large;">Visit my&nbsp;<a href="http://loggit.marytal.com/welcome">Movie Log</a>!</span><br /><br />Below is a summary of what I learned in the making of <i><a href="http://loggit.marytal.com/welcome" target="_blank">this</a></i> app, as well as a snapshot of its functionality. I'd suggest looking through the app before reading.<br /><br /><b>Nokogiri</b><br /><br />To acquire a list of most popular movies in the last 30 years I used Nokogiri to parse movie titles from <i>http://www.boxofficemojo.com/yearly/chart/?page=1&amp;view=releasedate&amp;view2=domestic&amp;yr=2014&amp;p=.htm</i>&nbsp;(with page and year parameters changing). The resulting text file was used for the autocomplete function below.<br /><br /><span style="color: blue;">Lessons Learned:</span><br /><span style="color: blue;">1. How to use Unix &gt; operator to output results into a text file</span><br /><span style="color: blue;">2. Using querySelectorAll to find a CSS selector for Nokogiri's css method</span><br /><span style="color: blue;">3. Using HTTParty to make HTTP requests</span><br /><br /><br /><b>Autocomplete</b><br /><br /><div class="separator" style="clear: both; text-align: center;"><a href="http://3.bp.blogspot.com/-94IoR3u8Ux4/VHKGePSZsKI/AAAAAAAAAkw/SmgKEvR6hno/s1600/Screen%2BShot%2B2014-11-23%2Bat%2B6.27.14%2BPM.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" src="http://3.bp.blogspot.com/-94IoR3u8Ux4/VHKGePSZsKI/AAAAAAAAAkw/SmgKEvR6hno/s1600/Screen%2BShot%2B2014-11-23%2Bat%2B6.27.14%2BPM.png" height="62" width="640" /></a></div><br />When a user begins typing out a movie's title into the input field (shown above), jQuery makes a request to my application's API endpoint, which returns the top five titles that most closely match the input value, determined via a regular expression. jQuery's autocomplete widget dropdown menu appears with the results.<br /><br />The submitted value is then sent to Rotten Tomatoes' APIs to retrieve movie attributes.<br /><br />The dropdown is needed to A) improve user experience and B) send more expressive values to Rotten Tomatoes' API ("Harry Potter and the Sorcerer's Stone" VS. "Harry Potter").<br /><br /><br /><span style="color: blue;">Lessons learned:</span><br /><span style="color: blue;">1. How to make a relative path in Ruby on Rails</span><br /><span style="color: blue;">2. The value of responding with a JSON object</span><br /><span style="color: blue;">3. Don't use the passive voice or else you'll sound politician-y</span><br /><br /><br /><b>Knockout</b><br /><br />Once the information from Rotten Tomatoes is received, it is parsed and automatically assigned to the movie's proper attributes.<br /><br /><div class="separator" style="clear: both; text-align: center;"><a href="http://3.bp.blogspot.com/-XkUGW80-qD0/VHKIHrES0CI/AAAAAAAAAk8/nQJvdtd6lrM/s1600/Screen%2BShot%2B2014-11-23%2Bat%2B7.19.26%2BPM.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" src="http://3.bp.blogspot.com/-XkUGW80-qD0/VHKIHrES0CI/AAAAAAAAAk8/nQJvdtd6lrM/s1600/Screen%2BShot%2B2014-11-23%2Bat%2B7.19.26%2BPM.png" height="426" width="640" /></a></div><br /><br />The user can then fill in the empty fields as well as change those that have been filled automatically. To achieve this I used <a href="http://knockoutjs.com/" target="_blank">Knockout</a>, a javascript library that allowed any changes made to the values to be automatically detected and saved. <br /><br /><div class="separator" style="clear: both; text-align: center;"><a href="http://1.bp.blogspot.com/-fVUW3YAvjYY/VHKJIJnuRdI/AAAAAAAAAlE/BSnNxrd_zTw/s1600/Screen%2BShot%2B2014-11-23%2Bat%2B7.25.14%2BPM.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" src="http://1.bp.blogspot.com/-fVUW3YAvjYY/VHKJIJnuRdI/AAAAAAAAAlE/BSnNxrd_zTw/s1600/Screen%2BShot%2B2014-11-23%2Bat%2B7.25.14%2BPM.png" height="170" width="640" /></a></div><br /><span style="color: blue;">Lessons Learned:</span><br /><span style="color: blue;">1. How to use Knockout bindings</span><br /><span style="color: blue;">2. How to use Knockout computed values to send jQuery POST requests</span><br /><br /><br /><b>Lightbox</b><br /><br />I made a post earlier about a <a href="/2014/11/simple-lightbox.html" target="_blank">lightbox</a>&nbsp;that I had made in preparation for this project. I wish I had known about Knockout back then, because it would have saved me making "visible" and "invisible" classes to hide and show the lightbox. The Knockout library has an "if" binding that would make displaying/hiding the lightbox a simpler process.<br /><br /><div class="separator" style="clear: both; text-align: center;"><a href="http://1.bp.blogspot.com/-cz2eQjLeKt4/VHKMRiixV1I/AAAAAAAAAlQ/JBqlikB_4fA/s1600/Screen%2BShot%2B2014-11-23%2Bat%2B7.35.45%2BPM.png" imageanchor="1" style="clear: left; float: left; margin-bottom: 1em; margin-right: 1em;"><img border="0" src="http://1.bp.blogspot.com/-cz2eQjLeKt4/VHKMRiixV1I/AAAAAAAAAlQ/JBqlikB_4fA/s1600/Screen%2BShot%2B2014-11-23%2Bat%2B7.35.45%2BPM.png" height="395" width="400" /></a></div><br /><span style="color: blue;">Lessons Learned:</span><br /><span style="color: blue;">1. Knockout "Foreach"</span><br /><span style="color: blue;">2. Improved understanding of Javascript classes and methods</span><br /><span style="color: blue;">3. Overflow: scroll;</span><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />Visit the movie log <a href="http://loggit.marytal.com/welcome" target="_blank">HERE</a><br />Visit my github <a href="https://github.com/marytal" target="_blank">HERE</a><br /><br /><br />
-</div>
-
-	
-  				</p>
-  				<p>
-  					<a href="/2014/11/movie-log.html" title="Movie Log">
   						Read More
 					</a>
   				</p>
