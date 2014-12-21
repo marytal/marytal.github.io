@@ -58,8 +58,8 @@ var moveRight = function(e){
 var onCloseLightbox = function(e) {
   var lightbox = document.getElementById("lightbox");
   lightbox.className = "invisible";
-  var body = document.getElementById("everything_except_lightbox");
-  body.className = "visible";
+  var bodies = document.getElementById("everything_except_lightbox");
+  bodies.className = "";
   window.removeEventListener('keydown', assignAction);
 }
 
