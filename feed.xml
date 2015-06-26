@@ -5,8 +5,8 @@
     <description></description>
     <link>/</link>
     <atom:link href="/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Thu, 25 Jun 2015 22:02:16 -0700</pubDate>
-    <lastBuildDate>Thu, 25 Jun 2015 22:02:16 -0700</lastBuildDate>
+    <pubDate>Thu, 25 Jun 2015 22:03:57 -0700</pubDate>
+    <lastBuildDate>Thu, 25 Jun 2015 22:03:57 -0700</lastBuildDate>
     <generator>Jekyll v2.4.0</generator>
     
       <item>
@@ -107,9 +107,9 @@ In order to avoid annoying the client with a continuous rainfall, I wrote the ma
 
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;activate&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
   &lt;span class=&quot;c1&quot;&gt;// captures all of the prices on the page&lt;/span&gt;
-  &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;prices&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;sr&quot;&gt;/[$](\.|\,|\d+)+/g&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; 
+  &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;prices&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;sr&quot;&gt;/[$](\.|\,|\d+)+/g&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
   &lt;span class=&quot;c1&quot;&gt;//replaces them with randomly generated prices&lt;/span&gt;
-  &lt;span class=&quot;nb&quot;&gt;document&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;body&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;innerHTML&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;document&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;body&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;innerHTML&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;replace&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;prices&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;randomPrice&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; 
+  &lt;span class=&quot;nb&quot;&gt;document&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;body&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;innerHTML&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;document&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;body&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;innerHTML&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;replace&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;prices&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;randomPrice&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
   &lt;div class=&quot;&quot; style=&quot;clear: both; text-align: left;&quot;&gt;
@@ -147,12 +147,15 @@ In order to avoid annoying the client with a continuous rainfall, I wrote the ma
   &lt;br /&gt;
   &lt;br /&gt;
 
-  Get the Confused Shopper Extension &lt;a href=&quot;https://chrome.google.com/webstore/detail/confused-shopper-prank/mhamipanbofhcddlbjfkgkgigkekhjon&quot;&gt;HERE&lt;/a&gt;. 
+  Get the Confused Shopper Extension &lt;a href=&quot;https://chrome.google.com/webstore/detail/confused-shopper-prank/mhamipanbofhcddlbjfkgkgigkekhjon&quot;&gt;HERE&lt;/a&gt;.
 
   &lt;div class=&quot;separator&quot; style=&quot;clear: both; text-align: center;&quot;&gt;
   &lt;a href=&quot;http://2.bp.blogspot.com/-CJFUWY5DAJc/VJD7ac7ZO7I/AAAAAAAAAw0/OE-ufXRoH8I/s1600/Screen%2BShot%2B2014-12-16%2Bat%2B9.37.37%2BPM.png&quot; imageanchor=&quot;1&quot; style=&quot;margin-left: 1em; margin-right: 1em;&quot;&gt;&lt;img border=&quot;0&quot; src=&quot;http://2.bp.blogspot.com/-CJFUWY5DAJc/VJD7ac7ZO7I/AAAAAAAAAw0/OE-ufXRoH8I/s1600/Screen%2BShot%2B2014-12-16%2Bat%2B9.37.37%2BPM.png&quot; height=&quot;314&quot; width=&quot;640&quot; /&gt;&lt;/a&gt;&lt;/div&gt;
 
-&lt;/div&gt;</description>
+  &lt;a href=&quot;http://www.ilovefreesoftware.com/25/featured/free-prank-extensions-for-chrome.html&quot; title=&quot;5 FREE PRANK EXTENSIONS FOR CHROME&quot;&gt;&lt;img border=&quot;0&quot; src=&quot;http://cdn.ilovefreesoftware.com/wp-content/uploads/2011/03/ilovefreesoftware_reviewed_5Star.png&quot;/&gt;&lt;/a&gt;
+
+&lt;/div&gt;
+</description>
         <pubDate>Tue, 16 Dec 2014 22:41:00 -0800</pubDate>
         <link>/2014/12/chrome-extension-prank.html</link>
         <guid isPermaLink="true">/2014/12/chrome-extension-prank.html</guid>
