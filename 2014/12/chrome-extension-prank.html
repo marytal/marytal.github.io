@@ -71,12 +71,12 @@
   <div class="separator" style="clear: both; text-align: left;">
   To capture all of the prices on the page I used a regular expression, to access and change them I used Javascript's String replace() method and innerHTML method.
 
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">function</span> <span class="nx">activate</span><span class="p">()</span> <span class="p">{</span>
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">function</span> <span class="nx">activate</span><span class="p">()</span> <span class="p">{</span>
   <span class="c1">// captures all of the prices on the page</span>
   <span class="kd">var</span> <span class="nx">prices</span> <span class="o">=</span> <span class="sr">/[$](\.|\,|\d+)+/g</span><span class="p">;</span>
   <span class="c1">//replaces them with randomly generated prices</span>
   <span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">innerHTML</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="nx">prices</span><span class="p">,</span> <span class="nx">randomPrice</span><span class="p">);</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span></code></pre></figure>
 
   <div class="" style="clear: both; text-align: left;">
   <br /></div>
@@ -217,8 +217,6 @@
             </div>
             <p class="wc-container disclaimer">
                 
-       
-
 Powered by <a href="http://jekyllrb.com" target="_blank">Jekyll</a>
             </p>
         </footer>

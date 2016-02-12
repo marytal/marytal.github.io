@@ -62,13 +62,13 @@ It was becoming a problem though, that after an hour of disuse the apps would go
 <br />
 I fixed this by creating yet another Rails app and writting a custom rake task that sends GET requests to all of my previous applications, keeping them from idling.<br /> 
 
-<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">desc</span> <span class="s2">&quot;This task is called by the Heroku scheduler add-on&quot;</span>
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">desc</span> <span class="s2">&quot;This task is called by the Heroku scheduler add-on&quot;</span>
 <span class="n">task</span> <span class="ss">:send_requests</span> <span class="o">=&gt;</span> <span class="ss">:environment</span> <span class="k">do</span>
   <span class="n">urls</span> <span class="o">=</span> <span class="o">[</span><span class="s1">&#39;http://loggit.marytal.com&#39;</span><span class="p">,</span> <span class="s1">&#39;http://oskar.marytal.com&#39;</span><span class="p">,</span> <span class="s1">&#39;http://magnetboard.marytal.com&#39;</span><span class="o">]</span> <span class="c1"># etc.</span>
   <span class="n">urls</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">url</span><span class="o">|</span> 
     <span class="no">HTTParty</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">);</span>
   <span class="k">end</span>
-<span class="k">end</span></code></pre></div>
+<span class="k">end</span></code></pre></figure>
 
 
 To periodically schedule these requests, I installed a Heroku add-on called <a href="https://devcenter.heroku.com/articles/scheduler#installing-the-add-on" target="_blank">Scheduler</a>. All I had to do then was specify which rake task to run and at what frequency. Problem solved!
@@ -187,8 +187,6 @@ Side Note: If you schedule too many tasks, Heroku will start charging you - so t
             </div>
             <p class="wc-container disclaimer">
                 
-       
-
 Powered by <a href="http://jekyllrb.com" target="_blank">Jekyll</a>
             </p>
         </footer>

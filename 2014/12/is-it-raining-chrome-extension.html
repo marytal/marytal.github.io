@@ -70,17 +70,17 @@
   Once I finished that, I wrote a function, using jQuery, to send a GET request to <a href="http://ipinfo.io/">http://ipinfo.io</a>, which returned a JSON object containing the user's IP address. Learned a small lesson on JSONP on the way.<br />
   <br />
 
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">function</span> <span class="nx">find_ip_address</span><span class="p">()</span> <span class="p">{</span>
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">function</span> <span class="nx">find_ip_address</span><span class="p">()</span> <span class="p">{</span>
   <span class="nx">$</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s2">&quot;http://ipinfo.io&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
       <span class="nx">user_ip</span> <span class="o">=</span> <span class="nx">response</span><span class="p">.</span><span class="nx">ip</span><span class="p">;</span>
   <span class="p">},</span> <span class="s2">&quot;jsonp&quot;</span><span class="p">);</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span></code></pre></figure>
 
   <br />
   I then wrote a function to send a GET request to <a href="http://api.worldweatheronline.com/">http://api.worldweatheronline.com</a>&nbsp;, filling in the user's IP address and my key as parameters.<br />
   <br />
 
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">function</span> <span class="nx">check_weather</span><span class="p">(){</span>
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">function</span> <span class="nx">check_weather</span><span class="p">(){</span>
 
   <span class="nx">$</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s2">&quot;http://api.worldweatheronline.com/free/v2/weather.ashx?key=xxxx.xxxx.xxxx&amp;q=&quot;</span> <span class="o">+</span> <span class="nx">user_ip</span> <span class="o">+</span><span class="s2">&quot;&amp;format=json&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">if</span><span class="p">(</span><span class="nx">response</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">error</span><span class="p">){</span>
@@ -92,16 +92,16 @@
       <span class="nx">make_it_rain</span><span class="p">();</span>
     <span class="p">}</span>
   <span class="p">},</span> <span class="s2">&quot;jsonp&quot;</span><span class="p">);</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span></code></pre></figure>
 
   <br />
   <br />
   <br />
 In order to avoid annoying the client with a continuous rainfall, I wrote the make_it_rain() function to only run for a few seconds. However, every 20 minutes, setInterval calls an anonymous function, which calls the check_weather() function (seen above) to determine whether it is still raining.
 
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">setInterval</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">setInterval</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
   <span class="nx">check_weather</span><span class="p">();</span>
-<span class="p">},</span> <span class="mi">1000</span> <span class="o">*</span> <span class="mi">60</span> <span class="o">*</span> <span class="mi">20</span><span class="p">);</span></code></pre></div>
+<span class="p">},</span> <span class="mi">1000</span> <span class="o">*</span> <span class="mi">60</span> <span class="o">*</span> <span class="mi">20</span><span class="p">);</span></code></pre></figure>
 
 
   <br />
@@ -206,8 +206,6 @@ In order to avoid annoying the client with a continuous rainfall, I wrote the ma
             </div>
             <p class="wc-container disclaimer">
                 
-       
-
 Powered by <a href="http://jekyllrb.com" target="_blank">Jekyll</a>
             </p>
         </footer>
