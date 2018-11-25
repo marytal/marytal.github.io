@@ -1,0 +1,192 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <style>
+      body {
+        margin: 0px;
+        padding: 0px;
+      }
+
+    </style>
+  </head>
+  <body>
+      <div id="container" style="background-color: black;"></div>
+
+<script src="/kin/kinetic-v5.1.0.js"></script>
+<script src="http://code.createjs.com/soundjs-0.5.2.min.js"></script>
+<script defer="defer">
+
+
+var audioPath = "/starrynight/";
+var manifest = [
+    {id: "song", src:"anastasia.mp3"},
+
+];
+createjs.Sound.alternateExtensions = ["ogg"];
+
+createjs.Sound.addEventListener("fileload", handleLoad);
+createjs.Sound.registerManifest(manifest, audioPath);
+
+function handleLoad(event) {
+  var instance = createjs.Sound.play("song");
+}
+
+
+
+
+
+  var mouseCoords = [0, 0];
+  var doc_height = document.body.scrollHeight;
+  var doc_width = document.body.offsetWidth;
+  var radius = 0;
+
+  var stage = new Kinetic.Stage({
+    container: 'container',
+    width: doc_width,
+    height: doc_height
+  });
+
+  var layer = new Kinetic.Layer();
+
+
+
+  function Circle(radius) {
+    var circle = this;
+    var self = this;
+
+
+    self.radius = radius;
+    self.x = mouseCoords[0];
+    self.y = mouseCoords[1];
+
+    self.kinetic = new Kinetic.Circle({
+      x: self.x,
+      y: self.y,
+      radius: self.radius,
+      fill: "yellow",
+      stroke: 'black',
+      strokeWidth: 3,
+      draggable: true
+    });
+
+    self.move = function(){
+      var tween = new Kinetic.Tween({
+        node: self.kinetic,
+        x: self.kinetic.getX() + (Math.floor(Math.random() * 2001) - 1000),
+        y: self.kinetic.getY() + (Math.floor(Math.random() * 2001) - 1000),
+        duration: 3,
+        easing: Kinetic.Easings.EaseInOut
+      }).play();
+    }
+
+    self.remove = function(){
+      if (self.x < -5 || self.y < -5){
+        self.kinetic.remove();
+      }
+
+    }
+
+
+    layer.add(self.kinetic);
+
+
+}
+
+  function doObjectsCollide(a, b) {
+     return !(
+      ((a.getY() + a.getHeight()) < (b.getY())) ||
+      (a.getY() > (b.y + b.getHeight())) ||
+      ((a.getX() + a.getWidth()) < b.getX()) ||
+      (a.getX() > (b.getX() + b.getWidth()))
+     );
+  }
+
+
+
+
+  var countRadius;
+  var onload = function(){
+
+    container.addEventListener("mousemove", function(e){
+      mouseCoords[0] = e.pageX;
+      mouseCoords[1] = e.pageY;
+
+    })
+
+    container.addEventListener("mousedown", function(e) {
+      if (e.button != 0){
+        return;
+      }
+
+      if (text) {
+        text.remove()
+      }
+      countRadius = setInterval(function() {
+        radius += 1;
+        var growing = new Circle(radius);
+        setTimeout(function(){
+          growing.kinetic.remove();
+        }, 20)
+        layer.draw();
+      }, 10)
+    });
+
+    container.addEventListener("mouseup", function(e) {
+      clearInterval(countRadius);
+      var last_circle = new Circle(radius);
+      layer.draw();
+      last_circle.move();
+      radius = 0;
+    })
+
+    var text = new Kinetic.Text({
+    text: "Click to Bring Out the Stars",
+      fontSize: 15,
+      fontFamily: 'Calibri',
+      fill: 'white',
+      x: doc_width/2,
+      y: doc_height/2,
+    });
+
+    text.setX( (doc_width/2) - text.getWidth()/2 );
+    layer.add(text);
+
+    layer.draw()
+
+
+
+  }
+
+
+  stage.add(layer);
+
+
+  // var circles = stage.find('Circle');
+
+  // var removeCircleIfOutOfBounds = function(circle){
+  //   if (circle.getX() < 0 || circle.getY() < 0){
+  //     circle.remove();
+  //   } 
+  // }
+
+  // circles = stage.find('Circle');
+  // for(var i = 0; i < circles.length; i++){
+  //   removeCircleIfOutOfBounds(circles[i]);
+  // }
+
+
+
+  var draw = function() {
+    
+    layer.draw();
+    requestAnimationFrame(draw);
+  }
+
+
+
+  onload();
+  draw();
+
+</script>
+  </body>
+</html>      

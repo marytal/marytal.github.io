@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title></title>
+    <description></description>
+    <link>/</link>
+    <atom:link href="/feed.xml" rel="self" type="application/rss+xml" />
+    <pubDate>Sat, 24 Sep 2016 13:27:42 -0400</pubDate>
+    <lastBuildDate>Sat, 24 Sep 2016 13:27:42 -0400</lastBuildDate>
+    <generator>Jekyll v3.2.1</generator>
+    
+      <item>
+        <title>Is It Raining? Another Chrome Extension</title>
+        <description>&lt;div class=&quot;css-full-post-content js-full-post-content&quot;&gt;
+  I enjoyed making my last one and thought I'd give it another go. This extension plays a simple animation (falling rain) over the client's page to let him or her know whether it is raining in his or her region. See video for demonstration.&lt;br /&gt;
+  &lt;br /&gt;
+  Get 'Is it Raining?' &lt;a href=&quot;https://chrome.google.com/webstore/detail/is-it-raining/nfbemkbodblloganccnncedoenadnjgo&quot; target=&quot;_blank&quot;&gt;HERE&lt;/a&gt;.&lt;br /&gt;
+  &lt;br /&gt;
+  &lt;iframe allowfullscreen=&quot;&quot; frameborder=&quot;0&quot; height=&quot;390&quot; src=&quot;//www.youtube.com/embed/0RMx5KZFNM4&quot; width=&quot;640&quot;&gt;&lt;/iframe&gt;
+
+  &lt;br /&gt;
+  &lt;br /&gt;
+  I used Canvas to animate the falling rain.&lt;br /&gt;
+  &lt;br /&gt;
+  Once I finished that, I wrote a function, using jQuery, to send a GET request to &lt;a href=&quot;http://ipinfo.io/&quot;&gt;http://ipinfo.io&lt;/a&gt;, which returned a JSON object containing the user's IP address. Learned a small lesson on JSONP on the way.&lt;br /&gt;
+  &lt;br /&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;find_ip_address&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;http://ipinfo.io&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;response&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;nx&quot;&gt;user_ip&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;response&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;ip&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;jsonp&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+  &lt;br /&gt;
+  I then wrote a function to send a GET request to &lt;a href=&quot;http://api.worldweatheronline.com/&quot;&gt;http://api.worldweatheronline.com&lt;/a&gt;&amp;nbsp;, filling in the user's IP address and my key as parameters.&lt;br /&gt;
+  &lt;br /&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;check_weather&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(){&lt;/span&gt;
+
+  &lt;span class=&quot;nx&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;http://api.worldweatheronline.com/free/v2/weather.ashx?key=xxxx.xxxx.xxxx&amp;amp;q=&amp;quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;user_ip&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;&amp;amp;format=json&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;response&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;response&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;error&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
+      &lt;span class=&quot;c1&quot;&gt;// check to see if weather data for client&amp;#39;s geographical is available.&lt;/span&gt;
+      &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;No weather data for your region. Sorries!&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;response&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;current_condition&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;precipMM&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
+      &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;it&amp;#39;s raiiinin!&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+      &lt;span class=&quot;c1&quot;&gt;// if there is precipitation, start the rain animation&lt;/span&gt;
+      &lt;span class=&quot;nx&quot;&gt;make_it_rain&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;jsonp&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+  &lt;br /&gt;
+  &lt;br /&gt;
+  &lt;br /&gt;
+In order to avoid annoying the client with a continuous rainfall, I wrote the make_it_rain() function to only run for a few seconds. However, every 20 minutes, setInterval calls an anonymous function, which calls the check_weather() function (seen above) to determine whether it is still raining.
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;nx&quot;&gt;setInterval&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;check_weather&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1000&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;60&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;20&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+
+  &lt;br /&gt;
+  &lt;br /&gt;
+  &lt;br /&gt;
+  &lt;br /&gt;
+
+&lt;/div&gt;
+</description>
+        <pubDate>Thu, 18 Dec 2014 22:41:00 -0500</pubDate>
+        <link>/2014/12/is-it-raining-chrome-extension.html</link>
+        <guid isPermaLink="true">/2014/12/is-it-raining-chrome-extension.html</guid>
+        
+        
+      </item>
+    
+      <item>
+        <title>Google Chrome Prank Extension</title>
+        <description>&lt;div class=&quot;css-full-post-content js-full-post-content&quot;&gt;
+  Next Cyber Monday will be a blast.&lt;br /&gt;
+  &lt;br /&gt;
+  &lt;a href=&quot;https://chrome.google.com/webstore/detail/confused-shopper-prank/mhamipanbofhcddlbjfkgkgigkekhjon&quot;&gt;Confused Shopper&lt;/a&gt; is a Chrome extension that changes all of the prices on your page to appear to be between $0.01 and $0.99. Secretly upload it to a friend's computer and enjoy their reaction when they discover the great new deals of the day.&lt;br /&gt;
+  &lt;div class=&quot;separator&quot; style=&quot;clear: both; text-align: center;&quot;&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;separator&quot; style=&quot;clear: both; text-align: center;&quot;&gt;
+  &lt;br /&gt;&lt;a href=&quot;https://chrome.google.com/webstore/detail/confused-shopper-prank/mhamipanbofhcddlbjfkgkgigkekhjon&quot; imageanchor=&quot;1&quot; style=&quot;margin-left: 1em; margin-right: 1em;&quot;&gt;&lt;img border=&quot;0&quot; src=&quot;http://1.bp.blogspot.com/-uS5BU3YTiOQ/VJD7fGWkTGI/AAAAAAAAAw8/PjvVp1OTDyQ/s1600/Screen%2BShot%2B2014-12-16%2Bat%2B9.40.17%2BPM.png&quot; height=&quot;404&quot; width=&quot;640&quot; /&gt;&lt;/a&gt;&lt;/div&gt;
+  &lt;div class=&quot;separator&quot; style=&quot;clear: both; text-align: center;&quot;&gt;
+  &lt;br /&gt;&lt;/div&gt;
+  &lt;div class=&quot;&quot; style=&quot;clear: both; text-align: left;&quot;&gt;
+  This was my first Chrome Extension so to get started, I read through Google's&amp;nbsp;&lt;a href=&quot;https://developer.chrome.com/extensions/getstarted&quot; target=&quot;_blank&quot;&gt;tutorial&lt;/a&gt;.&amp;nbsp;&lt;/div&gt;
+  &lt;div class=&quot;separator&quot; style=&quot;clear: both; text-align: left;&quot;&gt;
+  To capture all of the prices on the page I used a regular expression, to access and change them I used Javascript's String replace() method and innerHTML method.
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;activate&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;// captures all of the prices on the page&lt;/span&gt;
+  &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;prices&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;sr&quot;&gt;/[$](\.|\,|\d+)+/g&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;//replaces them with randomly generated prices&lt;/span&gt;
+  &lt;span class=&quot;nb&quot;&gt;document&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;body&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;innerHTML&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;document&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;body&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;innerHTML&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;replace&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;prices&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;randomPrice&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+  &lt;div class=&quot;&quot; style=&quot;clear: both; text-align: left;&quot;&gt;
+  &lt;br /&gt;&lt;/div&gt;
+  &lt;div class=&quot;&quot; style=&quot;clear: both; text-align: left;&quot;&gt;
+  &lt;br /&gt;&lt;/div&gt;
+  &lt;div class=&quot;&quot; style=&quot;clear: both; text-align: left;&quot;&gt;
+  &lt;span style=&quot;color: blue;&quot;&gt;Lessons Learned:&lt;/span&gt;&lt;/div&gt;
+  &lt;div class=&quot;separator&quot; style=&quot;clear: both; text-align: left;&quot;&gt;
+  &lt;/div&gt;
+  &lt;ol&gt;
+  &lt;li&gt;&lt;span style=&quot;color: blue;&quot;&gt;Calling the Javascript String replace() method with a function&lt;/span&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;span style=&quot;color: blue;&quot;&gt;Regular Expressions for a repeating patterns&lt;/span&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;span style=&quot;color: blue;&quot;&gt;Basic setup of a Chrome extension&lt;/span&gt;&lt;/li&gt;
+  &lt;/ol&gt;
+  &lt;br /&gt;
+  &lt;div class=&quot;separator&quot; style=&quot;clear: both; text-align: left;&quot;&gt;
+  &lt;br /&gt;&lt;/div&gt;
+  &lt;span style=&quot;color: red;&quot;&gt;Issues:&lt;/span&gt;&lt;br /&gt;
+  &lt;br /&gt;
+  &lt;ol&gt;
+  &lt;li&gt;&lt;span style=&quot;color: red;&quot;&gt;Something like '$5 billion' would turn into something like '$0.45 billion', which looks silly.&lt;/span&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;span style=&quot;color: red;&quot;&gt;Since prices are randomly generated, if a page displays the price of a single item twice the two values will likely be different.&lt;/span&gt;&lt;/li&gt;
+  &lt;/ol&gt;
+  &lt;br /&gt;
+  &lt;br /&gt;
+  Fixes/additional features to add:&lt;br /&gt;&lt;br&gt;
+  &lt;ol&gt;
+  &lt;li&gt;Include conditions for the words 'billion, million, hundred' etc. and change accordingly.&lt;/li&gt;
+  &lt;li&gt;Keep equal prices equal (i.e. $10 and $10 will equal $0.22 and $0.22).&amp;nbsp;&lt;/li&gt;
+  &lt;li&gt;Let users choose the range of prices they want to display.&lt;/li&gt;
+  &lt;li&gt;Add functionality for turning the extension off&lt;/li&gt;
+  &lt;li&gt;Including a safeguard to keep people from actually buying anything when they are unaware of the real price.&lt;/li&gt;
+  &lt;/ol&gt;
+  &lt;br /&gt;
+  &lt;br /&gt;
+
+  Get the Confused Shopper Extension &lt;a href=&quot;https://chrome.google.com/webstore/detail/confused-shopper-prank/mhamipanbofhcddlbjfkgkgigkekhjon&quot;&gt;HERE&lt;/a&gt;.
+
+  &lt;div class=&quot;separator&quot; style=&quot;clear: both; text-align: center;&quot;&gt;
+  &lt;a href=&quot;http://2.bp.blogspot.com/-CJFUWY5DAJc/VJD7ac7ZO7I/AAAAAAAAAw0/OE-ufXRoH8I/s1600/Screen%2BShot%2B2014-12-16%2Bat%2B9.37.37%2BPM.png&quot; imageanchor=&quot;1&quot; style=&quot;margin-left: 1em; margin-right: 1em;&quot;&gt;&lt;img border=&quot;0&quot; src=&quot;http://2.bp.blogspot.com/-CJFUWY5DAJc/VJD7ac7ZO7I/AAAAAAAAAw0/OE-ufXRoH8I/s1600/Screen%2BShot%2B2014-12-16%2Bat%2B9.37.37%2BPM.png&quot; height=&quot;314&quot; width=&quot;640&quot; /&gt;&lt;/a&gt;&lt;/div&gt;
+
+  &lt;a href=&quot;http://www.ilovefreesoftware.com/25/featured/free-prank-extensions-for-chrome.html&quot; title=&quot;5 FREE PRANK EXTENSIONS FOR CHROME&quot;&gt;&lt;img border=&quot;0&quot; src=&quot;http://cdn.ilovefreesoftware.com/wp-content/uploads/2011/03/ilovefreesoftware_reviewed_5Star.png&quot;/&gt;&lt;/a&gt;
+
+&lt;/div&gt;
+</description>
+        <pubDate>Tue, 16 Dec 2014 22:41:00 -0500</pubDate>
+        <link>/2014/12/chrome-extension-prank.html</link>
+        <guid isPermaLink="true">/2014/12/chrome-extension-prank.html</guid>
+        
+        
+      </item>
+    
+      <item>
+        <title>Keeping Heroku Apps Awake</title>
+        <description>&lt;div class=&quot;css-full-post-content js-full-post-content&quot;&gt;
+I host my Rails apps on &lt;a href=&quot;https://www.heroku.com/&quot; target=&quot;_blank&quot;&gt;Heroku&lt;/a&gt;, which is an awesome service.&lt;br /&gt;
+It was becoming a problem though, that after an hour of disuse the apps would go into idle mode. Once an app is idling, the startup time ranges from 8 - 15 seconds, by which point many users just give up and click elsewhere.&lt;br /&gt;
+&lt;br /&gt;
+I fixed this by creating yet another Rails app and writting a custom rake task that sends GET requests to all of my previous applications, keeping them from idling.&lt;br /&gt; 
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;n&quot;&gt;desc&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;This task is called by the Heroku scheduler add-on&amp;quot;&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;task&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:send_requests&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:environment&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;urls&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;http://loggit.marytal.com&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;http://oskar.marytal.com&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;http://magnetboard.marytal.com&amp;#39;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# etc.&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;urls&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;each&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;url&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; 
+    &lt;span class=&quot;no&quot;&gt;HTTParty&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;url&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+
+To periodically schedule these requests, I installed a Heroku add-on called &lt;a href=&quot;https://devcenter.heroku.com/articles/scheduler#installing-the-add-on&quot; target=&quot;_blank&quot;&gt;Scheduler&lt;/a&gt;. All I had to do then was specify which rake task to run and at what frequency. Problem solved!
+&lt;br&gt;
+&lt;br&gt;
+&lt;span style=&quot;color: blue;&quot;&gt;Lessons Learned:&lt;/span&gt;&lt;br /&gt;
+&lt;br /&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;span style=&quot;color: blue;&quot;&gt;Difference between web and worker dynos&lt;/span&gt;&lt;/li&gt;
+&lt;li&gt;&lt;span style=&quot;color: blue;&quot;&gt;Building custom rake tasks&lt;/span&gt;&lt;/li&gt;
+&lt;li&gt;&lt;span style=&quot;color: blue;&quot;&gt;How to use Heroku add-ons&lt;/span&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;br /&gt;
+
+&lt;div class=&quot;separator&quot; style=&quot;clear: both; text-align: center;&quot;&gt;
+&lt;a href=&quot;http://3.bp.blogspot.com/-nv0o8sIlEAs/VI-e5kf3foI/AAAAAAAAAwM/sxHD3gIrr5I/s1600/Screen%2BShot%2B2014-12-15%2Bat%2B8.31.24%2BPM.png&quot; imageanchor=&quot;1&quot; style=&quot;margin-left: 1em; margin-right: 1em;&quot;&gt;&lt;img border=&quot;0&quot; src=&quot;http://3.bp.blogspot.com/-nv0o8sIlEAs/VI-e5kf3foI/AAAAAAAAAwM/sxHD3gIrr5I/s1600/Screen%2BShot%2B2014-12-15%2Bat%2B8.31.24%2BPM.png&quot; height=&quot;310&quot; width=&quot;640&quot; /&gt;&lt;/a&gt;&lt;/div&gt;
+&lt;br /&gt;
+
+&lt;br&gt;
+
+Side Note: If you schedule too many tasks, Heroku will start charging you - so take care to monitor your usage. 
+
+&lt;/div&gt;</description>
+        <pubDate>Sun, 14 Dec 2014 22:41:00 -0500</pubDate>
+        <link>/2014/12/keeping-heroku-apps-awake.html</link>
+        <guid isPermaLink="true">/2014/12/keeping-heroku-apps-awake.html</guid>
+        
+        
+      </item>
+    
+      <item>
+        <title>My Magnet Board</title>
+        <description>&lt;div class=&quot;css-full-post-content js-full-post-content&quot;&gt;
+I began making this app when I was just starting out with Ruby and Ruby on Rails. I hadn't finished it because many of the features that I wanted to include seemed out of my league at the time. When I came back to it a few days ago I was happy to see that I could now debug my code, understand it, and add the features that I had wanted. &lt;br&gt;&lt;br /&gt;
+
+
+&lt;br /&gt;Video below demonstrates functionality.&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;iframe width=&quot;640&quot; height=&quot;390&quot; src=&quot;//www.youtube.com/embed/gdURhw1waas&quot; frameborder=&quot;0&quot; allowfullscreen&gt;&lt;/iframe&gt;&lt;br /&gt;&lt;br /&gt;Visit &lt;a href=&quot;http://magnetboard.marytal.com/&quot; target=&quot;_blank&quot;&gt;Magnet Board&lt;/a&gt; here.&lt;br /&gt;Visit &lt;a href=&quot;https://github.com/marytal/magnet_board&quot; target=&quot;_blank&quot;&gt;Github Directory&lt;/a&gt;&amp;nbsp;to see code.&lt;br /&gt;&lt;br /&gt;
+&lt;/div&gt;</description>
+        <pubDate>Sat, 13 Dec 2014 22:41:00 -0500</pubDate>
+        <link>/2014/12/magnet-board.html</link>
+        <guid isPermaLink="true">/2014/12/magnet-board.html</guid>
+        
+        
+      </item>
+    
+      <item>
+        <title>Testing My Vector Library with Jasmine</title>
+        <description>&lt;div class=&quot;css-full-post-content js-full-post-content&quot;&gt;
+&lt;span style=&quot;background-color: white; color: #252519; font-family: Lora, serif; font-size: 15px; line-height: 22px;&quot;&gt;I have found myself repeatedly using vector math in my Canvas applications, so I wrote a small library to avoid rewriting code for every project. It includes functions for adding, subtracting, scaling and normalizing vectors. You can find the source code&amp;nbsp;&lt;/span&gt;&lt;a href=&quot;https://github.com/marytal/marytal.github.io/tree/master/jasmine-standalone-2.1.0/src&quot; style=&quot;font-family: Lora, serif; font-size: 15px; line-height: 22px;&quot; target=&quot;_blank&quot;&gt;HERE&lt;/a&gt;&lt;span style=&quot;background-color: white; color: #252519; font-family: Lora, serif; font-size: 15px; line-height: 22px;&quot;&gt;.&lt;/span&gt;&lt;br /&gt;&lt;span style=&quot;color: #252519; font-family: Lora, serif;&quot;&gt;&lt;span style=&quot;background-color: white; font-size: 15px; line-height: 22px;&quot;&gt;&lt;br /&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&quot;color: #252519; font-family: Lora, serif;&quot;&gt;&lt;span style=&quot;background-color: white; font-size: 15px; line-height: 22px;&quot;&gt;I used&amp;nbsp;&lt;a href=&quot;http://jasmine.github.io/2.1/introduction.html&quot; target=&quot;_blank&quot;&gt;Jasmine&lt;/a&gt;&amp;nbsp;to&lt;/span&gt;&lt;/span&gt;&lt;span style=&quot;background-color: white; color: #252519; font-family: Lora, serif; font-size: 15px; line-height: 22px;&quot;&gt;&amp;nbsp;test my functions.&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;background-color: white; color: #252519; font-family: Lora, serif; font-size: 15px; line-height: 22px;&quot;&gt;Click &lt;/span&gt;&lt;a href=&quot;http://github.marytal.com/jasmine-standalone-2.1.0/spec/vectorsspec.js&quot; style=&quot;font-family: Lora, serif; font-size: 15px; line-height: 22px;&quot; target=&quot;_blank&quot;&gt;HERE&lt;/a&gt;&lt;span style=&quot;background-color: white; color: #252519; font-family: Lora, serif; font-size: 15px; line-height: 22px;&quot;&gt; to see my specs.&lt;/span&gt;&lt;br /&gt;&lt;span style=&quot;background-color: white; color: #252519; font-family: Lora, serif; font-size: 15px; line-height: 22px;&quot;&gt;Click&amp;nbsp;&lt;a href=&quot;http://github.marytal.com/jasmine-standalone-2.1.0/SpecRunner.html&quot; target=&quot;_blank&quot;&gt;HERE&lt;/a&gt;&amp;nbsp;to see the Jasmine Spec Runner in action.&amp;nbsp;&lt;/span&gt;&lt;br /&gt;&lt;span style=&quot;background-color: white; color: #252519; font-family: Lora, serif; font-size: 15px; line-height: 22px;&quot;&gt;&lt;br /&gt;&lt;/span&gt;&lt;span style=&quot;background-color: white; color: #252519; font-family: Lora, serif; font-size: 15px; line-height: 22px;&quot;&gt;Got Jasmine set up thanks to &lt;a href=&quot;http://evanhahn.com/how-do-i-jasmine/&quot; target=&quot;_blank&quot;&gt;THIS&lt;/a&gt; well-written tutorial.&lt;/span&gt;&lt;br /&gt;&lt;span style=&quot;background-color: white; color: #252519; font-family: Lora, serif; font-size: 15px; line-height: 22px;&quot;&gt;Get the latest Jasmine version &lt;a href=&quot;https://github.com/jasmine&quot; target=&quot;_blank&quot;&gt;HERE&lt;/a&gt;.&lt;/span&gt;&lt;br /&gt;&lt;span style=&quot;background-color: white; color: #252519; font-family: Lora, serif; font-size: 15px; line-height: 22px;&quot;&gt;&lt;br /&gt;&lt;/span&gt;&lt;span style=&quot;background-color: white; font-family: Lora, serif; font-size: 15px; line-height: 22px;&quot;&gt;&lt;span style=&quot;color: blue;&quot;&gt;Lessons Learned:&lt;/span&gt;&lt;/span&gt;&lt;br /&gt;&lt;span style=&quot;background-color: white; font-family: Lora, serif; font-size: 15px; line-height: 22px;&quot;&gt;&lt;span style=&quot;color: blue;&quot;&gt;1. Basics of the Jasmine testing framework&lt;/span&gt;&lt;/span&gt;&lt;br /&gt;&lt;span style=&quot;background-color: white; font-family: Lora, serif; font-size: 15px; line-height: 22px;&quot;&gt;&lt;span style=&quot;color: blue;&quot;&gt;2. Re-learned how to find the dot product of two vectors. Yaay!&lt;/span&gt;&lt;/span&gt;&lt;br /&gt;&lt;span style=&quot;background-color: white; font-family: Lora, serif; font-size: 15px; line-height: 22px;&quot;&gt;&lt;span style=&quot;color: blue;&quot;&gt;&lt;br /&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&quot;color: red;&quot;&gt;Next Steps:&lt;/span&gt;&lt;br /&gt;&lt;span style=&quot;color: red;&quot;&gt;1. Use the Jasmine beforeEach, afterEach functions&lt;/span&gt;&lt;br /&gt;&lt;span style=&quot;color: red;&quot;&gt;2. Test asynchronous data&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;color: #252519; font-family: Lora, serif;&quot;&gt;&lt;span style=&quot;background-color: white; font-size: 15px; line-height: 22px;&quot;&gt;&lt;br /&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&quot;color: #252519; font-family: Lora, serif;&quot;&gt;&lt;span style=&quot;background-color: white; font-size: 15px; line-height: 22px;&quot;&gt;&lt;br /&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;/div&gt;</description>
+        <pubDate>Thu, 11 Dec 2014 04:41:00 -0500</pubDate>
+        <link>/2014/12/jasmine-testing-framework.html</link>
+        <guid isPermaLink="true">/2014/12/jasmine-testing-framework.html</guid>
+        
+        
+      </item>
+    
+      <item>
+        <title>Ring Game</title>
+        <description>&lt;div class=&quot;css-full-post-content js-full-post-content&quot;&gt;
+Visit game &lt;a href=&quot;/rings/ring.html&quot; target=&quot;_blank&quot;&gt;HERE&lt;/a&gt;&lt;br /&gt;See Github &lt;a href=&quot;https://github.com/marytal/marytal.github.io/tree/master/rings&quot; target=&quot;_blank&quot;&gt;HERE&lt;/a&gt;&lt;br /&gt;&lt;span style=&quot;color: blue;&quot;&gt;&lt;br /&gt;&lt;/span&gt;&lt;span style=&quot;color: blue;&quot;&gt;Lessons Learned:&lt;/span&gt;&lt;br /&gt;&lt;span style=&quot;color: blue;&quot;&gt;1. Google analytics tracking&lt;/span&gt;&lt;br /&gt;&lt;span style=&quot;color: blue;&quot;&gt;2. Custom shapes with KineticJS&lt;/span&gt;&lt;br /&gt;&lt;br /&gt;Problems with program:&lt;br /&gt;1.When the mouse is moved quickly past the rings, the program doesn't register that it had intersected with it. This makes cheating very easy.&lt;br /&gt;2. Since each level is randomly generated, it is possible for a level to be impossible.&lt;br /&gt;3. When the screen size is small enough, the Next Level button can be made to be right next to the star which, again, makes cheating possible.&lt;br /&gt;&lt;br /&gt;Problem Fixes:&lt;br /&gt;1. Register the mouse movement as a line instead of a point and check if the line intersects with the ring.&lt;br /&gt;2. Set up safeguards regulating how close rings can be to one another.&lt;br /&gt;3. Enable the size of the star, the player, and the radiuses of the rings to take into account the screen size.&lt;br /&gt;&lt;br /&gt;&lt;div class=&quot;separator&quot; style=&quot;clear: both; text-align: center;&quot;&gt;&lt;a href=&quot;http://github.marytal.com/rings/ring.html&quot; imageanchor=&quot;1&quot; style=&quot;margin-left: 1em; margin-right: 1em;&quot;&gt;&lt;img border=&quot;0&quot; src=&quot;http://4.bp.blogspot.com/-9yzp4E5xeEQ/VIYpWyPBE1I/AAAAAAAAAvQ/0Ahaf3Zho8I/s1600/Screen%2BShot%2B2014-12-03%2Bat%2B9.14.11%2BPM.png&quot; height=&quot;590&quot; width=&quot;640&quot; /&gt;&lt;/a&gt;&lt;/div&gt;&lt;br /&gt;
+&lt;/div&gt;
+</description>
+        <pubDate>Mon, 08 Dec 2014 22:45:00 -0500</pubDate>
+        <link>/2014/12/ring-game.html</link>
+        <guid isPermaLink="true">/2014/12/ring-game.html</guid>
+        
+        
+      </item>
+    
+      <item>
+        <title>My Gallery</title>
+        <description>&lt;div class=&quot;css-full-post-content js-full-post-content&quot;&gt;
+&lt;h2&gt;&lt;a href=&quot;http://oskar.marytal.com/&quot; target=&quot;_blank&quot;&gt;One Page Website&lt;/a&gt;&lt;/h2&gt;I made a website for a friend who wanted a place to display pictures of his welding projects, using Ruby on Rails and Knockout. This time I used Knockout to make a working lighbox instead of changing the lightbox's class from &quot;visible&quot; to &quot;invisible&quot;. It was both more and less difficult.&lt;br /&gt;&lt;br /&gt;&lt;i&gt;More difficult because:&lt;/i&gt;&lt;br /&gt;I accidentally included an outdated knockout gem which produced a few errors that I just couldn't figure out. I also didn't know about Knockout's $parent and $child bindings until after I had figured out a convoluted way of producing the same effect on my own.&lt;br /&gt;&lt;i&gt;&lt;br /&gt;&lt;/i&gt;&lt;i&gt;Less difficult because:&lt;/i&gt;&lt;br /&gt;Knockout's 'foreach' and 'click' bindings allowed me to easily move from image to image. I would say the overall time this took me, even with the difficulties, was less than the previous implementation of the same lightbox.&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;
+
+If he wants to add images my friend, the welder, can go to a secret URL. There he has the option to either upload an image from his computer or provide an image url. 
+&lt;img src=&quot;/assets/css/images/gallery.png&quot;&gt;
+
+&lt;span style=&quot;color: blue;&quot;&gt;Lessons Learned:&lt;/span&gt;&lt;br /&gt;&lt;span style=&quot;color: blue;&quot;&gt;1. How to use $parent and $child binding contexts in KnockoutJS&lt;/span&gt;&lt;br /&gt;&lt;span style=&quot;color: blue;&quot;&gt;2.&amp;nbsp;&lt;span style=&quot;text-indent: -18pt;&quot;&gt;How to use anchors to jump to numerous points on a page&lt;/span&gt;&lt;/span&gt;&lt;br /&gt;&lt;span style=&quot;color: blue;&quot;&gt;&lt;span style=&quot;text-indent: -18pt;&quot;&gt;3.&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;text-indent: -18pt;&quot;&gt;Improved understanding of HTML positioning and CSS features&lt;/span&gt;&lt;/span&gt;&lt;br /&gt;&lt;span style=&quot;text-indent: -18pt;&quot;&gt;&lt;br /&gt;&lt;/span&gt;&lt;div class=&quot;MsoListParagraphCxSpLast&quot; style=&quot;mso-list: l0 level1 lfo1; text-indent: -18.0pt;&quot;&gt;&lt;o:p&gt;&lt;/o:p&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+
+</description>
+        <pubDate>Fri, 28 Nov 2014 17:15:00 -0500</pubDate>
+        <link>/2014/11/gallery.html</link>
+        <guid isPermaLink="true">/2014/11/gallery.html</guid>
+        
+        
+      </item>
+    
+      <item>
+        <title>Starry Night</title>
+        <description>&lt;div class=&quot;css-full-post-content js-full-post-content&quot;&gt;
+&lt;h3&gt;&lt;a href=&quot;http://github.marytal.com/starrynight/starrynight.html&quot; target=&quot;_blank&quot;&gt;Click To View&lt;/a&gt;&lt;/h3&gt;&lt;span style=&quot;font-size: 13px; text-align: center;&quot;&gt;Before you click: Music plays on page load, so mind your speakers.&lt;/span&gt;&lt;br /&gt;&lt;span style=&quot;font-size: 13px; text-align: center;&quot;&gt;&lt;br /&gt;&lt;/span&gt;&lt;b&gt;More KineticJS and SoundJS&lt;/b&gt;&lt;br /&gt;&lt;br /&gt;&lt;div class=&quot;separator&quot; style=&quot;clear: both; text-align: center;&quot;&gt;&lt;a href=&quot;http://github.marytal.com/starrynight/starrynight.html&quot; imageanchor=&quot;1&quot;&gt;&lt;img border=&quot;0&quot; src=&quot;http://4.bp.blogspot.com/-_UiMtqPmmTo/VHaM3hkU31I/AAAAAAAAAmo/BLJuNyTR45U/s1600/Screen%2BShot%2B2014-11-26%2Bat%2B7.59.16%2BPM.png&quot; height=&quot;350&quot; width=&quot;640&quot; /&gt;&lt;/a&gt;&lt;/div&gt;&lt;br /&gt;The Canvas starts off empty, background colour set to black. On 'mousedown' a yellow circle starts to grow, on 'mouseup' a Kinetic Tween sets it on its course. Some circles fly off of the screen but some stick around to create the appearance of a &quot;starry night&quot;. If you want what looks like a full moon in your sky, wait a few seconds before lifting your mouse up.&lt;br /&gt;&lt;br /&gt;Background Song: &lt;a href=&quot;https://www.youtube.com/watch?v=8Sk5Ch29DrY&quot; target=&quot;_blank&quot;&gt;Once Upon a December&lt;/a&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;b&gt;Box2D&lt;/b&gt;&lt;br /&gt;I want to learn to use&amp;nbsp;&lt;a href=&quot;https://code.google.com/p/box2dweb/&quot;&gt;Box2D-Web&lt;/a&gt;, a Javascript version of the C++&amp;nbsp;library used by Angry Birds to create and manage all their physics. I've been slowly trying to build something using the tutorials linked below under &quot;resources&quot;.&lt;br /&gt;&lt;br /&gt;.........................................&lt;br /&gt;&lt;br /&gt;Visit Github page &lt;a href=&quot;https://github.com/marytal/marytal.github.io/tree/master/starrynight&quot; target=&quot;_blank&quot;&gt;HERE&lt;/a&gt;&lt;br /&gt;Visit Starry Night &lt;a href=&quot;http://github.marytal.com/starrynight/starrynight.html&quot; target=&quot;_blank&quot;&gt;HERE&lt;/a&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;b&gt;Resources:&lt;/b&gt;&lt;br /&gt;&lt;br /&gt;&lt;a href=&quot;http://blog.sethladd.com/2011/09/box2d-javascript-example-walkthrough.html&quot;&gt;Box2D Tutorial&lt;/a&gt;&lt;br /&gt;&lt;a href=&quot;http://www.codeproject.com/Articles/492883/Box-D-and-JavaScript-Part&quot;&gt;Box2D Tutorial 2&lt;/a&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;
+&lt;/div&gt;</description>
+        <pubDate>Thu, 27 Nov 2014 02:43:00 -0500</pubDate>
+        <link>/2014/11/starry-night.html</link>
+        <guid isPermaLink="true">/2014/11/starry-night.html</guid>
+        
+        
+      </item>
+    
+      <item>
+        <title>Discovering SoundJS</title>
+        <description>&lt;div class=&quot;css-full-post-content js-full-post-content&quot;&gt;
+&lt;h3&gt;&lt;a href=&quot;http://github.marytal.com/soundjs/playing_around.html&quot; target=&quot;_blank&quot;&gt;Crazy Minion&lt;/a&gt;&lt;/h3&gt;&lt;div class=&quot;separator&quot; style=&quot;clear: both; text-align: center;&quot;&gt;&lt;a href=&quot;http://github.marytal.com/soundjs/playing_around.html&quot; imageanchor=&quot;1&quot; style=&quot;clear: left; float: left; margin-bottom: 1em; margin-right: 1em;&quot;&gt;&lt;img border=&quot;0&quot; src=&quot;http://1.bp.blogspot.com/-j2zpLClbbTs/VHU3gYTxdqI/AAAAAAAAAmY/MfU3y_-h5Zs/s1600/Screen%2BShot%2B2014-11-25%2Bat%2B8.13.36%2BPM.png&quot; height=&quot;179&quot; width=&quot;200&quot; /&gt;&lt;/a&gt;&lt;/div&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;b&gt;&lt;span style=&quot;font-size: x-small;&quot;&gt;Click on the minion to hear a sound bite and watch an animation.&amp;nbsp;&lt;/span&gt;&lt;/b&gt;&lt;br /&gt;&lt;br /&gt;&lt;b&gt;SoundJS&lt;/b&gt;&lt;br /&gt;&lt;br /&gt;In building this page I used both KineticJS, which I discussed in my &lt;a href=&quot;/2014/11/kinetic-js.html&quot; target=&quot;&quot;&gt;last post&lt;/a&gt;,&amp;nbsp;and &lt;a href=&quot;http://www.createjs.com/#!/SoundJS/documentation&quot; target=&quot;_blank&quot;&gt;SoundJS&lt;/a&gt;, a Javascript library that makes working with audio &quot;a breeze&quot;, by the authors' account at least. I followed SoundJS's online&amp;nbsp;&lt;a href=&quot;http://www.createjs.com/tutorials/Basics%20and%20Best%20Practices/&quot;&gt;tutorial&lt;/a&gt;&amp;nbsp;closely to learn the basics of preloading, playing and pausing audio. Everything easily integrated with KineticJS.&lt;br /&gt;&lt;br /&gt;&lt;b&gt;KineticJS&lt;/b&gt;&lt;br /&gt;&lt;br /&gt;Working with Kinetic Images wasn't as simple as with shapes. It was necessary to load the images before making them kinetic or adding event listeners. &lt;br /&gt;&lt;br /&gt;&lt;span style=&quot;color: blue;&quot;&gt;Lessons Learned:&lt;/span&gt;&lt;br /&gt;&lt;span style=&quot;color: blue;&quot;&gt;1. Basic loading and playing of MP3's through SoundJS&lt;/span&gt;&lt;br /&gt;&lt;span style=&quot;color: blue;&quot;&gt;2. Using Kinetic Images&lt;/span&gt;&lt;br /&gt;&lt;span style=&quot;color: blue;&quot;&gt;3. The difference between URI's and URL's&lt;/span&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;b&gt;Resources:&lt;/b&gt;&lt;br /&gt;&lt;a href=&quot;http://www.createjs.com/tutorials/Basics%20and%20Best%20Practices/&quot; target=&quot;_blank&quot;&gt;Basic and Best Practices Tutorial&lt;/a&gt;&lt;br /&gt;&lt;a href=&quot;http://www.createjs.com/Docs/SoundJS/modules/SoundJS.html&quot; target=&quot;_blank&quot;&gt;SoundJS Documentation&lt;/a&gt;&lt;br /&gt;&lt;br /&gt;
+&lt;/div&gt;</description>
+        <pubDate>Wed, 26 Nov 2014 02:43:00 -0500</pubDate>
+        <link>/2014/11/soundjs.html</link>
+        <guid isPermaLink="true">/2014/11/soundjs.html</guid>
+        
+        
+      </item>
+    
+      <item>
+        <title>Discovering KineticJS</title>
+        <description>&lt;div class=&quot;css-full-post-content js-full-post-content&quot;&gt;
+&lt;br /&gt;&lt;h3&gt;&lt;a href=&quot;http://github.marytal.com/kineticjs/kineticjs.html&quot; target=&quot;_blank&quot;&gt;Math Bubbles&lt;/a&gt;&lt;/h3&gt;A simple game for kids to practice basic addition, subtraction, and multiplication.&lt;br /&gt;&lt;br /&gt;&lt;b&gt;Left click&lt;/b&gt; on the bubbles with a correct answer:&lt;br /&gt;&lt;div class=&quot;separator&quot; style=&quot;clear: both; text-align: center;&quot;&gt;&lt;a href=&quot;http://1.bp.blogspot.com/-0Gfvj0zKFR0/VHQXpMSNrEI/AAAAAAAAAlw/RIz1R_r3BUI/s1600/Screen%2BShot%2B2014-11-24%2Bat%2B11.45.25%2BPM.png&quot; imageanchor=&quot;1&quot; style=&quot;clear: left; float: left; margin-bottom: 1em; margin-right: 1em;&quot;&gt;&lt;img border=&quot;0&quot; src=&quot;http://1.bp.blogspot.com/-0Gfvj0zKFR0/VHQXpMSNrEI/AAAAAAAAAlw/RIz1R_r3BUI/s1600/Screen%2BShot%2B2014-11-24%2Bat%2B11.45.25%2BPM.png&quot; height=&quot;195&quot; width=&quot;200&quot; /&gt;&lt;/a&gt;&lt;/div&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;div class=&quot;separator&quot; style=&quot;clear: both; text-align: left;&quot;&gt;&lt;b&gt;Right click&lt;/b&gt; on the bubbles with an incorrect answer:&lt;/div&gt;&lt;div class=&quot;separator&quot; style=&quot;clear: both; text-align: center;&quot;&gt;&lt;br /&gt;&lt;/div&gt;&lt;div class=&quot;separator&quot; style=&quot;clear: both; text-align: center;&quot;&gt;&lt;br /&gt;&lt;/div&gt;&lt;div class=&quot;separator&quot; style=&quot;clear: both; text-align: center;&quot;&gt;&lt;br /&gt;&lt;/div&gt;&lt;div class=&quot;separator&quot; style=&quot;clear: both; text-align: center;&quot;&gt;&lt;a href=&quot;http://1.bp.blogspot.com/-cGLtAowJXH8/VHQXpAe9eGI/AAAAAAAAAls/_6Av5LipZgk/s1600/Screen%2BShot%2B2014-11-24%2Bat%2B11.45.13%2BPM.png&quot; imageanchor=&quot;1&quot; style=&quot;clear: left; float: left; margin-bottom: 1em; margin-right: 1em;&quot;&gt;&lt;img border=&quot;0&quot; src=&quot;http://1.bp.blogspot.com/-cGLtAowJXH8/VHQXpAe9eGI/AAAAAAAAAls/_6Av5LipZgk/s1600/Screen%2BShot%2B2014-11-24%2Bat%2B11.45.13%2BPM.png&quot; height=&quot;166&quot; width=&quot;200&quot; /&gt;&lt;/a&gt;&lt;/div&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;b&gt;Kinetic JS&lt;/b&gt;&lt;br /&gt;&lt;br /&gt;I was fiddling around with Canvas, attempting to rotate an image via animation (which turned out to be far more complicated than I'd hoped), and I stumbled upon an awesome Canvas framework. Kinetic JS &quot;enables high performance animations&quot; (&lt;a href=&quot;http://kineticjs.com/&quot; target=&quot;_blank&quot;&gt;source&lt;/a&gt;) - it automates so many of the tedious functions necessary for every Canvas project. It turned the whole rotating animation into something as simple as drawing a single rectangle with plain Canvas.&lt;br /&gt;&lt;br /&gt;&lt;b&gt;Javascript&lt;/b&gt;&lt;br /&gt;&lt;br /&gt;I ran into a few confusing bugs with my dreadful enemy, Javascript variable scope. I think that this time I really understood the scope and how to avoid running into problems with it in the future, so hopefully this'll be the last of that.&lt;br /&gt;&lt;br /&gt;Aside from learning to use Kinetic JS, this was a very education project for me because I pushed myself to use classes instead of isolated functions whenever possible. The first two languages I learned, Scheme and C, don't use classes, so it was hard for me to get into the habit.&lt;br /&gt;&lt;br /&gt;&lt;span style=&quot;color: blue;&quot;&gt;Lessons Learned:&lt;/span&gt;&lt;br /&gt;&lt;span style=&quot;color: blue;&quot;&gt;1. Basic animation with Kinetic JS&lt;/span&gt;&lt;br /&gt;&lt;span style=&quot;color: blue;&quot;&gt;2. Javascript variable scope understanding&amp;nbsp;&lt;/span&gt;&lt;br /&gt;&lt;span style=&quot;color: blue;&quot;&gt;3. Improved Javascript class understanding&lt;/span&gt;&lt;br /&gt;&lt;br /&gt;&lt;b&gt;Link to Math Bubbles github folder &lt;a href=&quot;https://github.com/marytal/marytal.github.io/tree/master/kineticjs&quot; target=&quot;_blank&quot;&gt;HERE&lt;/a&gt;&amp;nbsp;&lt;/b&gt;&lt;br /&gt;(Just a note that the Javascript and HTML are in the same file because I was just playing around and then it sort of turned into an actual project, so I didn't bother separating them.)&lt;br /&gt;&lt;b&gt;Link to Math Bubbles &lt;a href=&quot;http://github.marytal.com/kineticjs/kineticjs.html&quot; target=&quot;_blank&quot;&gt;HERE&lt;/a&gt;&lt;/b&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;
+&lt;/div&gt;</description>
+        <pubDate>Tue, 25 Nov 2014 08:25:00 -0500</pubDate>
+        <link>/2014/11/kinetic-js.html</link>
+        <guid isPermaLink="true">/2014/11/kinetic-js.html</guid>
+        
+        
+      </item>
+    
+  </channel>
+</rss>

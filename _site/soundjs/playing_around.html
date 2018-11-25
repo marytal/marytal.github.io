@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Title of the document</title>
+<link rel="stylesheet" type="text/css" href="/instructions/instructions.css">
+</head>
+
+<body>
+  <div id="container"></div>
+  <script src="/kin/kinetic-v5.1.0.js"></script>
+  <script src="http://code.createjs.com/soundjs-0.5.2.min.js"></script>
+
+
+  <script defer="defer">
+
+
+// SoundJS stuff
+
+var audioPath = "/soundjs/";
+var manifest = [
+    {id: "convo", src:"MinionsConversation.mp3"},
+    {id: "laughter", src:"minionslaughing.mp3"},
+    {id: "yay", src:"YAY.mp3"},
+    {id: "bottom", src:"Bottom2.mp3"},
+];
+createjs.Sound.alternateExtensions = ["ogg"];
+
+createjs.Sound.addEventListener("fileload", handleLoad);
+createjs.Sound.registerManifest(manifest, audioPath);
+
+var sounds = ["laughter", "yay", "bottom"];
+
+function handleLoad(event) {
+  // var instance = createjs.Sound.play("soundId");
+}
+
+
+//Kinetic JS stuff:
+
+  var doc_height = document.body.scrollHeight;
+  var doc_width = document.body.offsetWidth;
+
+  var stage = new Kinetic.Stage({
+    container: 'container',
+    width: doc_width,
+    height: doc_height
+  });
+  var layer = new Kinetic.Layer();
+
+var imageObj = new Image();
+
+imageObj.onload = function() {
+  var minion = new Kinetic.Image({
+    x: doc_width/2 - 70,
+    y: doc_height/3,
+    image: imageObj,
+    width: 106,
+    height: 118,
+    draggable: true
+
+  });
+
+  minion.addEventListener('click', function(){
+    var sound =  sounds[Math.floor(sounds.length * Math.random())]
+    var instance = createjs.Sound.play(sound);
+    randomTween(minion);
+
+  })
+
+  layer.add(minion);
+  stage.add(layer);
+  
+
+};
+
+var tween1 = function(node) {
+  tween = new Kinetic.Tween({
+      node: node, 
+      duration: 1,
+      rotation: 360,
+      easing: Kinetic.Easings.BackEaseIn,
+      onFinish: function() {
+        setTimeout(function() {
+          tween.reverse();
+        }, 200)      
+      }
+    }).play();
+}
+
+var tween2 = function(node) {
+  tween = new Kinetic.Tween({
+      node: node, 
+      duration: 0.5,
+      y: 0,
+      easing: Kinetic.Easings.EaseOut,
+      onFinish: function() {
+        setTimeout(function() {
+          tween.reverse();
+        }, 200)      
+      }
+    }).play();
+}
+
+var tween3 = function(node) {
+  var tween = new Kinetic.Tween({
+      node: node, 
+      duration: 0.5,
+      y: 500,
+      easing: Kinetic.Easings.ElasticEaseOut,
+      onFinish: function() {
+        setTimeout(function() {
+          tween.reverse();
+        }, 200)      
+      }
+    }).play();
+}
+
+var tween4 = function(node) {
+  var tween  = new Kinetic.Tween({
+    node: node,
+    duration: 0.5,
+    x: -100,
+    easing: Kinetic.Easings.BackEaseIn,
+    onFinish: function() {
+      tween.reverse();
+    }
+  }).play();
+}
+
+var randomTween = function(node) {
+  var tweens = [tween1, tween2, tween3, tween4];
+  var selected =  tweens[Math.floor(tweens.length * Math.random())]
+  selected(node);
+}
+
+// var tween2 = function(node) {
+//   tween = new Kinetic.Tween({
+//     node: node, 
+//     duration: 1,
+//     x: node.getWidth() + 200,
+//     y: node.getHeight() + 200,
+//     rotation: 360,
+//     opacity: 1,
+//     easing: Kinetic.Easings.Linear,
+//     onFinish: function() {
+//       tween3(node);
+//     }
+//   }).play();
+// }
+
+// var tween3 = function(node) {
+//   tween = new Kinetic.Tween({
+//     node: node,
+//     duration: 1,
+//     x: 200,
+//     easing: Kinetic.Easings.Linear
+//   }).play();
+// }
+
+// imageObj.addEventListener('click', function() {
+//     console.log("clicked")
+//     var instance = createjs.Sound.play("soundId");
+// })
+      
+imageObj.src = 'http://img3.wikia.nocookie.net/__cb20130911160355/despicableme/images/4/4d/Daveault1.png';
+
+
+
+
+
+  </script>
+
+  <script src="/instructions/instructions.js"></script>
+  <script>
+    add_instructions("<div style='text-align: center;''><b>How to Play</b></div>1. Click the minion. <br />2. Enjoy! <br />");
+  </script>
+
+</body>
+
+</html>

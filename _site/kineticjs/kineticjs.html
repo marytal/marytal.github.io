@@ -1,0 +1,373 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <style>
+      body {
+        margin: 0px;
+        padding: 0px;
+      }
+      #buttons {
+        position: absolute;
+        top: 5px;
+        left: 10px;
+      }
+      #buttons > input {
+        padding: 10px;
+        display: block;
+        margin-top: 5px;
+      }
+      #wrapper {
+        border: 5px solid #000000;
+        height: 100vh;
+        width: 100vw;
+      }
+    </style>
+    <link rel="stylesheet" type="text/css" href="/instructions/instructions.css">
+  </head>
+  <body>
+      <div id="container"></div>
+    
+    <div id="buttons">
+      <input type="button" id="activate" value="Add more circles">
+    </div>
+    <script src="/kin/kinetic-v5.1.0.js"></script>
+<script defer="defer">
+
+  var points = 0;
+  var colours = ['red', 'blue', 'green', 'yellow', 'pink', 'purple'];
+  var circles = []
+
+  var doc_height = document.body.scrollHeight;
+  var doc_width = document.body.offsetWidth;
+
+  var stage = new Kinetic.Stage({
+    container: 'container',
+    width: doc_width,
+    height: doc_height
+  });
+
+  var layer = new Kinetic.Layer();
+  var text_layer = new Kinetic.Layer();
+
+
+gameEndText = function() {
+  var rect = new Kinetic.Rect({
+    x: doc_width / 2 - 125,
+    y: doc_height / 4,
+    width: 250,
+    height: 50,
+    fill: 'yellow',
+    stroke: 'black',
+    strokeWidth: 4
+  });
+
+  var message = "Well done! You got " + points + " point(s)!";
+  if (points == 0){
+    message = "Good try. Refresh to try again?"
+  }
+
+  var text = new Kinetic.Text({
+    text: message,
+      fontSize: 15,
+      fontFamily: 'Calibri',
+      fill: 'black',
+  });
+
+  text.setX( rect.getX() + 20);
+  text.setY( rect.getY() + 20);
+
+  var endGameGroup = new Kinetic.Group({});
+
+  endGameGroup.add(rect).add(text);
+  layer.add(endGameGroup);
+  layer.draw();
+
+}
+
+
+  function Circle() {
+    circle = this;
+    var self = this;
+    var math = new MathObj();
+    math.random_equation();
+    self.answer = math.answer;
+
+    self.questionText = function(){
+      return math.x + " " + math.operator + " " + math.y + " = " + math.z;
+
+    }
+
+
+    self.replaceCircleWithStar = function() {
+      var star = new Kinetic.Star({
+        x: self.kinetic.x(),
+        y: self.kinetic.y(),
+        numPoints: 5,
+        innerRadius: 30,
+        outerRadius: 70,
+        fill: self.kinetic.fill(),
+        stroke: 'black',
+        strokeWidth: 4
+      });
+
+      layer.add(star);
+      self.kinetic.remove();
+      self.text.remove();
+      self = null;
+      layer.draw();
+
+      var tween = new Kinetic.Tween({
+        node: star,
+        rotationDeg: 360,
+        scaleX: 0,
+        scaleY: 0,
+        duration: 1,
+        easing: Kinetic.Easings.EaseInOut,
+        onFinish: function(){
+          star.remove();
+          layer.draw();
+          var circles = stage.find('Circle');
+          if(circles.length == 0 && (count >= 15)) {
+            gameEndText();
+          }
+        }
+      }).play();
+
+
+    }
+
+    self.replaceCircleWithExplosion = function(){
+      self.text.remove();
+      var tween = new Kinetic.Tween({
+        node: self.kinetic,
+        scaleX: 0,
+        scaleY: 0,
+        duration: 0.8,
+        easing: Kinetic.Easings.BounceEaseInOut,
+        onFinish: function(){
+          self.kinetic.remove();
+          layer.draw();
+          var circles = stage.find('Circle');
+          if(circles.length == 0 && (count >= 15)) {
+            gameEndText();
+          }
+        }
+      }).play();
+    }
+
+
+    self.kinetic = new Kinetic.Circle({
+      x: Math.random() * (stage.getWidth() - 125) + 50,
+      y: Math.random() * (stage.getHeight() - 175) + 100,
+      radius: Math.random() * 45 + 37,
+      fill: colours[Math.floor(colours.length * Math.random())],
+      stroke: 'black',
+      strokeWidth: 3,
+      draggable: true
+    });
+
+    self.text = new Kinetic.Text({
+      text: self.questionText(),
+      fontSize: 15,
+      fontFamily: 'Calibri',
+      fill: 'black',
+
+    });
+
+    self.text.setX( self.kinetic.getX() - self.text.getWidth()/2 );
+    self.text.setY( self.kinetic.getY() - self.text.getHeight()/2 );
+
+    self.kinetic.addEventListener('mousedown', function(e) {
+ 
+      if ((self.answer && e.button == 0) || (!self.answer && e.button == 2)) {
+        points += 1;
+        titleText.setText("Points: " + points);
+
+        self.replaceCircleWithStar();
+      } else {
+        self.replaceCircleWithExplosion();
+      }
+      
+    });
+
+    self.text.addEventListener('mousedown', function(e) {
+ 
+      if ((self.answer && e.button == 0) || (!self.answer && e.button == 2)) {
+        points += 1;
+        titleText.setText("Points: " + points);
+
+        self.replaceCircleWithStar();
+      } else {
+        self.replaceCircleWithExplosion();
+      }
+      
+    });
+
+    var circleGroup = new Kinetic.Group({});
+
+    circleGroup.add(self.kinetic).add(self.text);
+    layer.add(circleGroup);
+
+
+}
+
+
+var count = 0;
+  var onload = function(){
+    // for(var n = 0; n < 1; n++) {
+
+      new Circle();
+
+    // }
+
+
+    var circle_popups = setInterval(function() {
+      count += 1;
+      new Circle()
+      layer.draw();
+      if (count >= 15){
+        clearInterval(circle_popups);
+      }
+    }, 2000)
+  }
+
+  onload();
+
+
+
+
+  var titleText = new Kinetic.Text({
+    x: stage.width() / 2 - 60,
+    y: 15,
+    text: 'Math Bubble Pop',
+    fontSize: 30,
+    fontFamily: 'Calibri',
+    fill: 'black'
+  });
+
+  // titleText.setX( titleText.getX() - titleText.getWidth() / 2)
+
+  layer.add(titleText);
+
+
+  stage.add(layer);
+
+
+
+  document.getElementById('activate').addEventListener('click', function() {
+    // select shapes by type
+    var rects = stage.find('Rect');
+
+    // apply transition to all nodes in the array
+    // rects.each(function(shape) {
+    //   new Kinetic.Tween({
+    //     node: shape, 
+    //     duration: 1,
+    //     scaleX: Math.random() * 2,
+    //     scaleY: Math.random() * 2,
+    //     easing: Kinetic.Easings.ElasticEaseOut
+    //   }).play();
+    // });
+    new Circle();
+    layer.draw();
+
+  }, false);
+
+  // var circles = stage.find('Circle');
+  
+  // circles.each(function(shape) {
+  //   shape.addEventListener('click', function() {
+  //     console.log(shape.x());
+
+  //     var star = new Kinetic.Star({
+  //       x: shape.x(),
+  //       y: shape.y(),
+  //       numPoints: 5,
+  //       innerRadius: 30,
+  //       outerRadius: 70,
+  //       fill: shape.fill(),
+  //       stroke: 'black',
+  //       strokeWidth: 4
+  //     });
+
+  //     layer.add(star);
+  //     shape.remove();
+  //     layer.draw();
+
+  //   })
+  // })
+
+function MathObj() {
+  self = this;
+
+  var functions = [self.addit, self.subt, self.mult];
+
+  self.random_equation = function(){
+    var x = Math.floor((Math.random() * 4) + 1);
+    if (x == 0){
+      self.addit();
+    } else if(x == 1){
+      self.subt();
+    } else if(x == 2) {
+      self.mult();
+    } else {
+      self.wrong_answer();
+    }
+    
+  }
+
+  self.wrong_answer = function() {
+    self.random_equation();
+    self.answer = false;
+    self.z += 3;
+    self.y += 1;
+
+  }
+
+  self.addit = function() {
+    self.x = Math.floor((Math.random() * 30) + 1);
+    self.y = Math.floor((Math.random() * 30) + 1);
+    self.z = self.x + self.y;
+    self.operator = "+";
+    self.answer = true;
+  }
+
+  self.subt = function() {
+    self.x = Math.floor((Math.random() * 50) + 1);
+    self.y = Math.floor((Math.random() * (self.x - 1)) + 1);
+
+    self.z = self.x - self.y;
+    self.operator = "-";
+    self.answer = true;
+  }
+
+  self.mult = function() {
+    self.x = Math.floor((Math.random() * 12) + 1);
+    self.y = Math.floor((Math.random() * 12) + 1);
+    self.z = self.x * self.y;
+    self.operator = "*";
+    self.answer = true;
+  }
+
+  self.div = function() {
+    self.x = 2 * Math.floor((Math.random() * 12) + 1);
+    self.z = Math.floor((Math.random() * 12) + 1);
+
+    self.operator = "/";
+    self.answer = true;
+  }
+}
+
+document.getElementById("container").addEventListener('contextmenu', function (event) {
+  event.preventDefault();
+});
+
+
+</script>
+  <script src="/instructions/instructions.js"></script>
+  <script type="text/javascript">
+  add_instructions("<div style='text-align: center;''><b>How to Play</b></div>1. Right click on circles with correct answers.<br />2. Left click on circles with incorrect answers.<br />3. Add more circles for practice.");
+  </script>
+
+  </body>
+</html>      

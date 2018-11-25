@@ -1,0 +1,8 @@
+#!/bin/bash
+bundle exec jekyll build
+cp -r _site/ ~/Desktop/marytal.github.io
+cd ..
+cd marytal.github.io/
+git add --all
+git commit -m"automated upload"
+git push

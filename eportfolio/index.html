@@ -1,173 +1,325 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title>Mary Briskin</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1">        
-        <meta name="description" content="Ruby on Rails and Javascript developer for hire. 
-">
-        <link rel="canonical" 
-        href="/eportfolio/">
-        
-        <!-- Harmony styles -->
-        <link rel="stylesheet" type="text/css" href="/assets/css/main.css">
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <title>Directions Service (Complex)</title>
+    <style>
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 100%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      #floating-panel {
+        position: absolute;
+        top: 10px;
+        left: 25%;
+        z-index: 5;
+        background-color: #fff;
+        padding: 5px;
+        border: 1px solid #999;
+        text-align: center;
+        font-family: 'Roboto','sans-serif';
+        line-height: 30px;
+        padding-left: 10px;
+      }
+      #warnings-panel {
+        width: 100%;
+        height:10%;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="floating_pannel">
+      <strong>Starting Location: </strong>
+      <select id="start">
+        <option value="325 Front st. Toronto, ON">325 Front St</option>
+        <option value="25 Wood st. Toronto, ON">25 Wood St</option>
+        <option value="240 Wellington st. Toronto, ON">240 Wellington st. West</option>
+      </select>
+      <strong>Destination: </strong>
+      <!-- <select id="end"> -->
+        <input id="end" type="text" value="toronto">
+        <!-- <option value="43.651186, -79.384919">Queen and University</option>
+        <option value="Yonge and Bloor, Toronto, ON">Yonge and Bloor</option>
+        <option value="80 Spadina, ON">80 Spadina</option>
+        <option value="500 King st. Toronto, ON">500 King st. South</option>
+        <option value="The Office Pub, 117 John St, Toronto, ON M5V 2E2">The Office Pub</option> -->
+      <!-- </select> -->
+    </div>
+    <div id="map"></div>
+    &nbsp;
+    <div id="warnings-panel"></div>
+    <script>
+      function initMap() {
+        var markerArray = [];
+        toronto = new google.maps.LatLng(43.653225, -79.383186);
 
-        <!-- Modernizr js -->
-        <script async src="/assets/js/modernizr.js"></script>    
+        var directionsService = new google.maps.DirectionsService;
 
-        <!-- IE Fixes -->
-        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-        <!--[if lt IE 9]>
-          <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-          <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-        <![endif]-->        
-    </head>
-    <body class="theme-base-01">
-        <header class="main-header">
-            <div class="wc-container">
-                <h1><a href="/">Mary Briskin</a></h1>
-                <h2></h2>
-                <ul>
-	<li>
-		<a href="/projects">Projects</a><span>/</span>
-	</li>
-	<li>
-			<a href="/about">About</a><span>/</span>
-	</li>
-	<li>
-		<a href="/blog">Blog</a><span>/</span>
-	</li>
-	
-	<li>
-		<a title="Marytal on Github" 
-			href="https://github.com/Marytal" target="_blank">
-			Github
-		</a><span>/</span>
-	</li>
-	
-</ul>                
-            </div>
-        </header>
-        <div class="page-content wc-container">
-	<div class="post">
-		<h1></h1>
-		<div class="post">
-			<p>Please do not use any of the links above this message as they will lead to a different (and in this case, unimortant) part of my website, the only remedy to which would be clicking the back button. I asked Kathleen if this would be okay and she said it was fine. Thank you and Happy hunting!</p>
-
-<h3 id="my-eporfolio">My ePorfolio</h3>
-
-<p><img class="eportfolio_image" src="/assets/css/images/self.png" title="Me!" /></p>
-
-<p>Welcome to my ePortfolio! A magical place full of information and reflection! Take off your virtual shoes and enjoy all the wisdom that I have to offer. </p>
-
-<p><a href="/about2">About</a></p>
-
-<p><a href="/projects2">Projects</a></p>
-
-<p><a href="/contact">Contact</a></p>
-
-<p><a href="/pbrand">Personal Branding</a></p>
-
-<p><a href="/negotiation">Nogotiation</a></p>
-
-<p><a href="/networking">Networking</a></p>
-
-<p><a href="/presenting">Presentation Skills</a></p>
-
-		</div>
-	</div>
-</div>
-        <footer class="main-footer">
-            <div class="wc-container">
-                <div class="column one">
-                    <h6>Few more links</h6>
-<ul class="menu">
-    <li><a href="/projects">Projects</a></li>
-    <li><a href="/blog">Blog</a></li>
-    <li><a href="/resume">Resume</a></li>    
-</ul>		                    
-                </div>
-                <div class="column two">
-                    <h6>Follow me</h6>
-
-<ul class="social-media">
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 8,
+          center: toronto
+        });
 
 
-    
-    <li>
-        <a title="marrytall on Twitter" 
-            href="https://twitter.com/marrytall" 
-            class="twitter wc-img-replace" target="_blank">Twitter</a>
-    </li>   
-    
+        var directionsDisplay = new google.maps.DirectionsRenderer({map: map});
 
-    
-    <li>
-        <a title="Marytal on Github" 
-            href="https://github.com/Marytal" 
-            class="github wc-img-replace" target="_blank">Github</a>
-    </li>
-     
 
-    
+        var stepDisplay = new google.maps.InfoWindow;
 
-    
-    <li>
-        <a title="+MaryBriskin on Google Plus" 
-            href="https://plus.google.com/+MaryBriskin" 
-            class="google wc-img-replace" target="_blank">Google</a>
-    </li>
-    
 
-    
+        calculateAndDisplayRoute(
+            directionsDisplay, directionsService, markerArray, stepDisplay, map);
+        var onChangeHandler = function() {
+          calculateAndDisplayRoute(
+              directionsDisplay, directionsService, markerArray, stepDisplay, map);
+        };
+        document.getElementById('start').addEventListener('change', onChangeHandler);
+        // document.getElementById('end').addEventListener('change', onChangeHandler);
+        document.getElementById('end').addEventListener('blur', onChangeHandler);
+      }
 
-    
+      function calculateAndDisplayRoute(directionsDisplay, directionsService,
+          markerArray, stepDisplay, map) {
+        for (var i = 0; i < markerArray.length; i++) {
+          markerArray[i].setMap(null);
+        }
 
-</ul>
-                </div>
-            </div>
-            <p class="wc-container disclaimer">
-                
-       
+        directionsService.route({
+          origin: document.getElementById('start').value,
+          destination: document.getElementById('end').value,
+          travelMode: 'WALKING'
+        }, function(response, status) {
+          if (status === 'OK') {
+            document.getElementById('warnings-panel').innerHTML =
+                '<b>' + response.routes[0].warnings + '</b>';
+            directionsDisplay.setDirections(response);
+            showSteps(response, markerArray, stepDisplay, map);
+          } else {
+            window.alert('Directions request failed due to ' + status);
+          }
+        });
+      }
 
-Powered by <a href="http://jekyllrb.com" target="_blank">Jekyll</a>
-            </p>
-        </footer>
-        <script type="text/javascript">
-          /* To avoid render blocking css */
-          var cb = function() {
-            var l = document.createElement('link'); l.rel = 'stylesheet';
-            l.href = 'http://fonts.googleapis.com/css?family=Ubuntu+Mono&subset=latin';
-            var h = document.getElementsByTagName('head')[0]; h.parentNode.insertBefore(l, h);
-          };
-          var raf = requestAnimationFrame || mozRequestAnimationFrame ||
-              webkitRequestAnimationFrame || msRequestAnimationFrame;
-          if (raf) raf(cb);
-          else window.addEventListener('load', cb);
-        </script>
-        <!-- jQuery -->
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-        <!-- When no internet load JQuery from local -->
-        <script>window.jQuery || document.write('<script src="/assets/js/jquery.min.js"><\/script>')</script>
-        <!-- Site js -->
-        <script src="/assets/js/all.js"></script>
-        <!-- Google analytics  -->
-        
-<script type="text/javascript">
+      function duncansUrl(lat, long, direction) {
+        return `http://10.10.55.89:9000/avocado/api/v1.0/get_waypoint?latitude=${lat}&longitude=${long}&direction=${direction}`
+      }
 
-  var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-57591804-1']);
-  _gaq.push(['_trackPageview']);
+      function showSteps(directionResult, markerArray, stepDisplay, map) {
+        latlongs = polyline.decode(directionResult["routes"][0]["overview_polyline"])
+        console.log(latlongs)
 
-  (function() {
-    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-  })();
 
-</script>
+        var dangerZones = []; // should only be dangerous latlongs, not all.
 
-    </body>        
+        for (var i = 0; i < latlongs.length; i++) {
+          var url = duncansUrl(latlongs[i][0], latlongs[i][1], 'N')
+          var result = $.get({url: url, async: false})
+          console.log(result.responseJSON)
+
+          if (result.responseJSON.alert) {
+            latlongs[i].push(result.responseJSON.alert)
+            latlongs[i].push(result.responseJSON.risk)
+            dangerZones.push(latlongs[i])
+          }
+        }
+
+        for (var i = 0; i < dangerZones.length; i++) {
+          lat = dangerZones[i][0]
+          long = dangerZones[i][1]
+
+          var marker_colour;
+          if (dangerZones[i][3] == 'LOW') {
+            marker_colour = 'low.png'
+          } else if (dangerZones[i][3] == 'MED') {
+            marker_colour = 'mid.png'
+          } else {
+            marker_colour = 'high.png'
+          }
+
+          var marker = markerArray[i] = markerArray[i] || new google.maps.Marker({icon: marker_colour});
+          marker.setMap(map);
+          marker.setPosition(new google.maps.LatLng(lat, long))
+          attachInstructionText(
+              stepDisplay, marker, dangerZones[i][2], map);
+        }
+
+      }
+
+      function attachInstructionText(stepDisplay, marker, text, map) {
+        google.maps.event.addListener(marker, 'click', function() {
+          stepDisplay.setContent(text);
+          stepDisplay.open(map, marker);
+        });
+      }
+
+      ///////////////////////////////////////////////////
+
+
+var polyline = {};
+
+function py2_round(value) {
+    // Google's polyline algorithm uses the same rounding strategy as Python 2, which is different from JS for negative values
+    return Math.floor(Math.abs(value) + 0.5) * (value >= 0 ? 1 : -1);
+}
+
+function encode(current, previous, factor) {
+    current = py2_round(current * factor);
+    previous = py2_round(previous * factor);
+    var coordinate = current - previous;
+    coordinate <<= 1;
+    if (current - previous < 0) {
+        coordinate = ~coordinate;
+    }
+    var output = '';
+    while (coordinate >= 0x20) {
+        output += String.fromCharCode((0x20 | (coordinate & 0x1f)) + 63);
+        coordinate >>= 5;
+    }
+    output += String.fromCharCode(coordinate + 63);
+    return output;
+}
+
+/**
+ * Decodes to a [latitude, longitude] coordinates array.
+ *
+ * This is adapted from the implementation in Project-OSRM.
+ *
+ * @param {String} str
+ * @param {Number} precision
+ * @returns {Array}
+ *
+ * @see https://github.com/Project-OSRM/osrm-frontend/blob/master/WebContent/routing/OSRM.RoutingGeometry.js
+ */
+polyline.decode = function(str, precision) {
+    var index = 0,
+        lat = 0,
+        lng = 0,
+        coordinates = [],
+        shift = 0,
+        result = 0,
+        byte = null,
+        latitude_change,
+        longitude_change,
+        factor = Math.pow(10, precision || 5);
+
+    // Coordinates have variable length when encoded, so just keep
+    // track of whether we've hit the end of the string. In each
+    // loop iteration, a single coordinate is decoded.
+    while (index < str.length) {
+
+        // Reset shift, result, and byte
+        byte = null;
+        shift = 0;
+        result = 0;
+
+        do {
+            byte = str.charCodeAt(index++) - 63;
+            result |= (byte & 0x1f) << shift;
+            shift += 5;
+        } while (byte >= 0x20);
+
+        latitude_change = ((result & 1) ? ~(result >> 1) : (result >> 1));
+
+        shift = result = 0;
+
+        do {
+            byte = str.charCodeAt(index++) - 63;
+            result |= (byte & 0x1f) << shift;
+            shift += 5;
+        } while (byte >= 0x20);
+
+        longitude_change = ((result & 1) ? ~(result >> 1) : (result >> 1));
+
+        lat += latitude_change;
+        lng += longitude_change;
+
+        coordinates.push([lat / factor, lng / factor]);
+    }
+
+    return coordinates;
+};
+
+/**
+ * Encodes the given [latitude, longitude] coordinates array.
+ *
+ * @param {Array.<Array.<Number>>} coordinates
+ * @param {Number} precision
+ * @returns {String}
+ */
+polyline.encode = function(coordinates, precision) {
+    if (!coordinates.length) { return ''; }
+
+    var factor = Math.pow(10, precision || 5),
+        output = encode(coordinates[0][0], 0, factor) + encode(coordinates[0][1], 0, factor);
+
+    for (var i = 1; i < coordinates.length; i++) {
+        var a = coordinates[i], b = coordinates[i - 1];
+        output += encode(a[0], b[0], factor);
+        output += encode(a[1], b[1], factor);
+    }
+
+    return output;
+};
+
+function flipped(coords) {
+    var flipped = [];
+    for (var i = 0; i < coords.length; i++) {
+        flipped.push(coords[i].slice().reverse());
+    }
+    return flipped;
+}
+
+/**
+ * Encodes a GeoJSON LineString feature/geometry.
+ *
+ * @param {Object} geojson
+ * @param {Number} precision
+ * @returns {String}
+ */
+polyline.fromGeoJSON = function(geojson, precision) {
+    if (geojson && geojson.type === 'Feature') {
+        geojson = geojson.geometry;
+    }
+    if (!geojson || geojson.type !== 'LineString') {
+        throw new Error('Input must be a GeoJSON LineString');
+    }
+    return polyline.encode(flipped(geojson.coordinates), precision);
+};
+
+/**
+ * Decodes to a GeoJSON LineString geometry.
+ *
+ * @param {String} str
+ * @param {Number} precision
+ * @returns {Object}
+ */
+polyline.toGeoJSON = function(str, precision) {
+    var coords = polyline.decode(str, precision);
+    return {
+        type: 'LineString',
+        coordinates: flipped(coords)
+    };
+};
+
+if (typeof module === 'object' && module.exports) {
+    module.exports = polyline;
+}
+
+//////////////////////////////////////////////////
+
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBbRkaIcJZzO8aDB3p6uBBVuVYrBWOEDgo&callback=initMap">
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  </body>
 </html>
